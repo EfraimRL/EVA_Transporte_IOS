@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A78AF011F8EADE1009C1DFC /* Transportista-NotificacionesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78AF001F8EADE1009C1DFC /* Transportista-NotificacionesViewController.swift */; };
+		0A78AF031F8EAEA1009C1DFC /* Transportista_NotificacionesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78AF021F8EAEA1009C1DFC /* Transportista_NotificacionesTableViewCell.swift */; };
+		0A78AF051F8EB2B0009C1DFC /* Transportista_ClienteVajesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78AF041F8EB2B0009C1DFC /* Transportista_ClienteVajesTableViewCell.swift */; };
+		0A78AF071F8EB2EA009C1DFC /* Transportista-ClienteViajesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78AF061F8EB2EA009C1DFC /* Transportista-ClienteViajesViewController.swift */; };
+		0A875FFE1F7A882C009AE55E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A875FFD1F7A882C009AE55E /* AppDelegate.swift */; };
+		0A8760001F7A882C009AE55E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A875FFF1F7A882C009AE55E /* ViewController.swift */; };
+		0A8760061F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760041F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodeld */; };
+		0A8760081F7A882C009AE55E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A8760071F7A882C009AE55E /* Assets.xcassets */; };
+		0A87600B1F7A882C009AE55E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A8760091F7A882C009AE55E /* LaunchScreen.storyboard */; };
+		0A8760171F7A9475009AE55E /* Chofer-viajeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760161F7A9475009AE55E /* Chofer-viajeTableViewCell.swift */; };
+		0A8760191F7A9629009AE55E /* Chofer-ViajesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760181F7A9629009AE55E /* Chofer-ViajesViewController.swift */; };
+		0A87601B1F7AA34D009AE55E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A87601A1F7AA34D009AE55E /* Main.storyboard */; };
+		0A87601D1F7AA416009AE55E /* Chofer_DetalleDeViajeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87601C1F7AA416009AE55E /* Chofer_DetalleDeViajeViewController.swift */; };
+		0A8760211F7AA9C2009AE55E /* Chofer_DetalleDeViajeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760201F7AA9C2009AE55E /* Chofer_DetalleDeViajeTableViewCell.swift */; };
+		0A8760231F7AB23C009AE55E /* Proveedor-ViajesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760221F7AB23C009AE55E /* Proveedor-ViajesViewController.swift */; };
+		0A8760251F7AB265009AE55E /* Proveedor-ViajeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760241F7AB265009AE55E /* Proveedor-ViajeTableViewCell.swift */; };
+		0A8760271F7AB650009AE55E /* Proveedor_DetalleDeViajeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760261F7AB650009AE55E /* Proveedor_DetalleDeViajeViewController.swift */; };
+		0A8760291F7AB66B009AE55E /* Proveedor_DetalleDeViajeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760281F7AB66B009AE55E /* Proveedor_DetalleDeViajeTableViewCell.swift */; };
+		712DFDC01F7C6B4C005F299E /* Transportista-ChoferesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDBF1F7C6B4C005F299E /* Transportista-ChoferesViewController.swift */; };
+		712DFDC21F7C6B99005F299E /* Transportista-ViajesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDC11F7C6B99005F299E /* Transportista-ViajesViewController.swift */; };
+		712DFDC41F7C6F4B005F299E /* Transportista_choferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDC31F7C6F4B005F299E /* Transportista_choferTableViewCell.swift */; };
+		712DFDC61F7C6F79005F299E /* Transportista_viajeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDC51F7C6F79005F299E /* Transportista_viajeTableViewCell.swift */; };
+		712DFDC81F7C7946005F299E /* Transportista_clienteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDC71F7C7946005F299E /* Transportista_clienteTableViewCell.swift */; };
+		712DFDCA1F7C7972005F299E /* Transportista-ClientesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDC91F7C7972005F299E /* Transportista-ClientesViewController.swift */; };
+		712DFDCC1F7DAB5C005F299E /* Transportista-DetallesDelChoferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDCB1F7DAB5C005F299E /* Transportista-DetallesDelChoferViewController.swift */; };
+		712DFDCE1F7DAB93005F299E /* Transportista-DetallesDeViajeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDCD1F7DAB93005F299E /* Transportista-DetallesDeViajeViewController.swift */; };
+		712DFDD01F7DABB0005F299E /* Transportista-DetalleDeClienteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDCF1F7DABB0005F299E /* Transportista-DetalleDeClienteViewController.swift */; };
+		712DFDD21F7DAC4F005F299E /* Transportista_DetallesDeChoferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDD11F7DAC4F005F299E /* Transportista_DetallesDeChoferTableViewCell.swift */; };
+		712DFDD41F7DAC72005F299E /* Transportista_DetallesDeViajeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDD31F7DAC72005F299E /* Transportista_DetallesDeViajeTableViewCell.swift */; };
+		712DFDD61F7DAC9E005F299E /* Transportista_DetallesDeClienteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DFDD51F7DAC9E005F299E /* Transportista_DetallesDeClienteTableViewCell.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0A78AF001F8EADE1009C1DFC /* Transportista-NotificacionesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-NotificacionesViewController.swift"; sourceTree = "<group>"; };
+		0A78AF021F8EAEA1009C1DFC /* Transportista_NotificacionesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_NotificacionesTableViewCell.swift; sourceTree = "<group>"; };
+		0A78AF041F8EB2B0009C1DFC /* Transportista_ClienteVajesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_ClienteVajesTableViewCell.swift; sourceTree = "<group>"; };
+		0A78AF061F8EB2EA009C1DFC /* Transportista-ClienteViajesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-ClienteViajesViewController.swift"; sourceTree = "<group>"; };
+		0A875FFA1F7A882C009AE55E /* EVA_Transporte_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EVA_Transporte_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A875FFD1F7A882C009AE55E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0A875FFF1F7A882C009AE55E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A8760051F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EVA_Transporte_IOS.xcdatamodel; sourceTree = "<group>"; };
+		0A8760071F7A882C009AE55E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A87600A1F7A882C009AE55E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0A87600C1F7A882C009AE55E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A8760161F7A9475009AE55E /* Chofer-viajeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chofer-viajeTableViewCell.swift"; sourceTree = "<group>"; };
+		0A8760181F7A9629009AE55E /* Chofer-ViajesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chofer-ViajesViewController.swift"; sourceTree = "<group>"; };
+		0A87601A1F7AA34D009AE55E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0A87601C1F7AA416009AE55E /* Chofer_DetalleDeViajeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chofer_DetalleDeViajeViewController.swift; sourceTree = "<group>"; };
+		0A8760201F7AA9C2009AE55E /* Chofer_DetalleDeViajeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chofer_DetalleDeViajeTableViewCell.swift; sourceTree = "<group>"; };
+		0A8760221F7AB23C009AE55E /* Proveedor-ViajesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Proveedor-ViajesViewController.swift"; sourceTree = "<group>"; };
+		0A8760241F7AB265009AE55E /* Proveedor-ViajeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Proveedor-ViajeTableViewCell.swift"; sourceTree = "<group>"; };
+		0A8760261F7AB650009AE55E /* Proveedor_DetalleDeViajeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Proveedor_DetalleDeViajeViewController.swift; sourceTree = "<group>"; };
+		0A8760281F7AB66B009AE55E /* Proveedor_DetalleDeViajeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Proveedor_DetalleDeViajeTableViewCell.swift; sourceTree = "<group>"; };
+		712DFDBF1F7C6B4C005F299E /* Transportista-ChoferesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-ChoferesViewController.swift"; sourceTree = "<group>"; };
+		712DFDC11F7C6B99005F299E /* Transportista-ViajesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-ViajesViewController.swift"; sourceTree = "<group>"; };
+		712DFDC31F7C6F4B005F299E /* Transportista_choferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_choferTableViewCell.swift; sourceTree = "<group>"; };
+		712DFDC51F7C6F79005F299E /* Transportista_viajeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_viajeTableViewCell.swift; sourceTree = "<group>"; };
+		712DFDC71F7C7946005F299E /* Transportista_clienteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_clienteTableViewCell.swift; sourceTree = "<group>"; };
+		712DFDC91F7C7972005F299E /* Transportista-ClientesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-ClientesViewController.swift"; sourceTree = "<group>"; };
+		712DFDCB1F7DAB5C005F299E /* Transportista-DetallesDelChoferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-DetallesDelChoferViewController.swift"; sourceTree = "<group>"; };
+		712DFDCD1F7DAB93005F299E /* Transportista-DetallesDeViajeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-DetallesDeViajeViewController.swift"; sourceTree = "<group>"; };
+		712DFDCF1F7DABB0005F299E /* Transportista-DetalleDeClienteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transportista-DetalleDeClienteViewController.swift"; sourceTree = "<group>"; };
+		712DFDD11F7DAC4F005F299E /* Transportista_DetallesDeChoferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_DetallesDeChoferTableViewCell.swift; sourceTree = "<group>"; };
+		712DFDD31F7DAC72005F299E /* Transportista_DetallesDeViajeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_DetallesDeViajeTableViewCell.swift; sourceTree = "<group>"; };
+		712DFDD51F7DAC9E005F299E /* Transportista_DetallesDeClienteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transportista_DetallesDeClienteTableViewCell.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A875FF71F7A882C009AE55E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A875FF11F7A882C009AE55E = {
+			isa = PBXGroup;
+			children = (
+				0A875FFC1F7A882C009AE55E /* EVA_Transporte_IOS */,
+				0A875FFB1F7A882C009AE55E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0A875FFB1F7A882C009AE55E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A875FFA1F7A882C009AE55E /* EVA_Transporte_IOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A875FFC1F7A882C009AE55E /* EVA_Transporte_IOS */ = {
+			isa = PBXGroup;
+			children = (
+				0A875FFD1F7A882C009AE55E /* AppDelegate.swift */,
+				0A875FFF1F7A882C009AE55E /* ViewController.swift */,
+				0A87601A1F7AA34D009AE55E /* Main.storyboard */,
+				0A8760071F7A882C009AE55E /* Assets.xcassets */,
+				0A8760091F7A882C009AE55E /* LaunchScreen.storyboard */,
+				0A87600C1F7A882C009AE55E /* Info.plist */,
+				0A8760041F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodeld */,
+				0A8760161F7A9475009AE55E /* Chofer-viajeTableViewCell.swift */,
+				0A8760181F7A9629009AE55E /* Chofer-ViajesViewController.swift */,
+				0A87601C1F7AA416009AE55E /* Chofer_DetalleDeViajeViewController.swift */,
+				0A8760201F7AA9C2009AE55E /* Chofer_DetalleDeViajeTableViewCell.swift */,
+				0A8760221F7AB23C009AE55E /* Proveedor-ViajesViewController.swift */,
+				0A8760241F7AB265009AE55E /* Proveedor-ViajeTableViewCell.swift */,
+				0A8760261F7AB650009AE55E /* Proveedor_DetalleDeViajeViewController.swift */,
+				0A8760281F7AB66B009AE55E /* Proveedor_DetalleDeViajeTableViewCell.swift */,
+				712DFDBF1F7C6B4C005F299E /* Transportista-ChoferesViewController.swift */,
+				712DFDC31F7C6F4B005F299E /* Transportista_choferTableViewCell.swift */,
+				712DFDCB1F7DAB5C005F299E /* Transportista-DetallesDelChoferViewController.swift */,
+				712DFDD11F7DAC4F005F299E /* Transportista_DetallesDeChoferTableViewCell.swift */,
+				712DFDC11F7C6B99005F299E /* Transportista-ViajesViewController.swift */,
+				712DFDC51F7C6F79005F299E /* Transportista_viajeTableViewCell.swift */,
+				712DFDCD1F7DAB93005F299E /* Transportista-DetallesDeViajeViewController.swift */,
+				712DFDD31F7DAC72005F299E /* Transportista_DetallesDeViajeTableViewCell.swift */,
+				712DFDC91F7C7972005F299E /* Transportista-ClientesViewController.swift */,
+				712DFDC71F7C7946005F299E /* Transportista_clienteTableViewCell.swift */,
+				0A78AF061F8EB2EA009C1DFC /* Transportista-ClienteViajesViewController.swift */,
+				0A78AF041F8EB2B0009C1DFC /* Transportista_ClienteVajesTableViewCell.swift */,
+				712DFDCF1F7DABB0005F299E /* Transportista-DetalleDeClienteViewController.swift */,
+				712DFDD51F7DAC9E005F299E /* Transportista_DetallesDeClienteTableViewCell.swift */,
+				0A78AF001F8EADE1009C1DFC /* Transportista-NotificacionesViewController.swift */,
+				0A78AF021F8EAEA1009C1DFC /* Transportista_NotificacionesTableViewCell.swift */,
+			);
+			path = EVA_Transporte_IOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0A875FF91F7A882C009AE55E /* EVA_Transporte_IOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A87600F1F7A882C009AE55E /* Build configuration list for PBXNativeTarget "EVA_Transporte_IOS" */;
+			buildPhases = (
+				0A875FF61F7A882C009AE55E /* Sources */,
+				0A875FF71F7A882C009AE55E /* Frameworks */,
+				0A875FF81F7A882C009AE55E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EVA_Transporte_IOS;
+			productName = EVA_Transporte_IOS;
+			productReference = 0A875FFA1F7A882C009AE55E /* EVA_Transporte_IOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A875FF21F7A882C009AE55E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "EVA Transporte";
+				TargetAttributes = {
+					0A875FF91F7A882C009AE55E = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 0A875FF51F7A882C009AE55E /* Build configuration list for PBXProject "EVA_Transporte_IOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0A875FF11F7A882C009AE55E;
+			productRefGroup = 0A875FFB1F7A882C009AE55E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A875FF91F7A882C009AE55E /* EVA_Transporte_IOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A875FF81F7A882C009AE55E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A87601B1F7AA34D009AE55E /* Main.storyboard in Resources */,
+				0A87600B1F7A882C009AE55E /* LaunchScreen.storyboard in Resources */,
+				0A8760081F7A882C009AE55E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A875FF61F7A882C009AE55E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				712DFDCC1F7DAB5C005F299E /* Transportista-DetallesDelChoferViewController.swift in Sources */,
+				0A78AF031F8EAEA1009C1DFC /* Transportista_NotificacionesTableViewCell.swift in Sources */,
+				0A8760001F7A882C009AE55E /* ViewController.swift in Sources */,
+				0A78AF051F8EB2B0009C1DFC /* Transportista_ClienteVajesTableViewCell.swift in Sources */,
+				712DFDC41F7C6F4B005F299E /* Transportista_choferTableViewCell.swift in Sources */,
+				0A8760061F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodeld in Sources */,
+				712DFDC01F7C6B4C005F299E /* Transportista-ChoferesViewController.swift in Sources */,
+				0A8760291F7AB66B009AE55E /* Proveedor_DetalleDeViajeTableViewCell.swift in Sources */,
+				0A8760171F7A9475009AE55E /* Chofer-viajeTableViewCell.swift in Sources */,
+				712DFDD01F7DABB0005F299E /* Transportista-DetalleDeClienteViewController.swift in Sources */,
+				712DFDCA1F7C7972005F299E /* Transportista-ClientesViewController.swift in Sources */,
+				0A8760251F7AB265009AE55E /* Proveedor-ViajeTableViewCell.swift in Sources */,
+				0A78AF071F8EB2EA009C1DFC /* Transportista-ClienteViajesViewController.swift in Sources */,
+				712DFDC81F7C7946005F299E /* Transportista_clienteTableViewCell.swift in Sources */,
+				0A78AF011F8EADE1009C1DFC /* Transportista-NotificacionesViewController.swift in Sources */,
+				0A8760271F7AB650009AE55E /* Proveedor_DetalleDeViajeViewController.swift in Sources */,
+				712DFDD61F7DAC9E005F299E /* Transportista_DetallesDeClienteTableViewCell.swift in Sources */,
+				712DFDD21F7DAC4F005F299E /* Transportista_DetallesDeChoferTableViewCell.swift in Sources */,
+				0A8760231F7AB23C009AE55E /* Proveedor-ViajesViewController.swift in Sources */,
+				0A875FFE1F7A882C009AE55E /* AppDelegate.swift in Sources */,
+				0A87601D1F7AA416009AE55E /* Chofer_DetalleDeViajeViewController.swift in Sources */,
+				712DFDC61F7C6F79005F299E /* Transportista_viajeTableViewCell.swift in Sources */,
+				0A8760191F7A9629009AE55E /* Chofer-ViajesViewController.swift in Sources */,
+				712DFDC21F7C6B99005F299E /* Transportista-ViajesViewController.swift in Sources */,
+				712DFDD41F7DAC72005F299E /* Transportista_DetallesDeViajeTableViewCell.swift in Sources */,
+				0A8760211F7AA9C2009AE55E /* Chofer_DetalleDeViajeTableViewCell.swift in Sources */,
+				712DFDCE1F7DAB93005F299E /* Transportista-DetallesDeViajeViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0A8760091F7A882C009AE55E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A87600A1F7A882C009AE55E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0A87600D1F7A882C009AE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0A87600E1F7A882C009AE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0A8760101F7A882C009AE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = EVA_Transporte_IOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Efraim.EVA-Transporte-IOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		0A8760111F7A882C009AE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = EVA_Transporte_IOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Efraim.EVA-Transporte-IOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A875FF51F7A882C009AE55E /* Build configuration list for PBXProject "EVA_Transporte_IOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A87600D1F7A882C009AE55E /* Debug */,
+				0A87600E1F7A882C009AE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A87600F1F7A882C009AE55E /* Build configuration list for PBXNativeTarget "EVA_Transporte_IOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8760101F7A882C009AE55E /* Debug */,
+				0A8760111F7A882C009AE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0A8760041F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0A8760051F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodel */,
+			);
+			currentVersion = 0A8760051F7A882C009AE55E /* EVA_Transporte_IOS.xcdatamodel */;
+			path = EVA_Transporte_IOS.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 0A875FF21F7A882C009AE55E /* Project object */;
+}
