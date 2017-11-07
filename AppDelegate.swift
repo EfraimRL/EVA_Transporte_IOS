@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import UserNotifications
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
+            if !accepted {
+                print("Permiso denegado por el usuario")
+            }
+        }
+        GMSServices.provideAPIKey("AIzaSyDujxHXvs7aboctT7LfOy-MU9BOcGDdaBc")
+        GMSPlacesClient.provideAPIKey("AIzaSyDujxHXvs7aboctT7LfOy-MU9BOcGDdaBc")
         return true
     }
 

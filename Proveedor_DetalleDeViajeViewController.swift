@@ -7,17 +7,23 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
-    
+    var clienteId = ""
+    var viajeId = ""
     @IBOutlet weak var tvProveedorViajeDetalles: UITableView!
 
     var ciudades = ["Detalle","Destino","Origen","Telefono"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvProveedorViajeDetalles.dataSource = self
         self.tvProveedorViajeDetalles.delegate = self
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
+        self.asd = view
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +31,39 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     }
     
 //Seccion de Mapa
+    @IBAction func btnMostrarMapa(_ sender: Any) {
+        mostrarMapa()
+    }
+    var asd:Any = self
+    var mapa:Any = self
+    func mostrarMapa(){
+        
+        //Mapa
+        // Create a GMSCameraPosition that tells the map to display the
+        // coordinate -33.86,151.20 at zoom level 6.
+        let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: 300, height: 300), camera: camera)
+        mapView.isMyLocationEnabled = true
+        //mapView.center = self.view.center
+        //self.view.addSubview(mapView)
+        mapa = mapView
+        
+        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapView
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "X",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
+        
+        self.view = self.mapa as! UIView
+        
+    }
+    func salirDelMapa() -> Void {
+        print("salir del mapa")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
+        self.view = self.asd as! UIView
+    }
     
 //Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,5 +77,8 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         celda.lblPDetalle?.text = arrayCiudades
         return celda
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }

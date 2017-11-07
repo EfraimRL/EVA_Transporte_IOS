@@ -12,6 +12,13 @@ class Chofer_viajeTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var lblViaje: UILabel!
+    func configureCell(listaDeObjetos: listaDeObjetos){
+        lblViaje.text = listaDeObjetos.nombre
+    }
+    var choferId = "0001"
+    var telefono = "1234567"
+    var viajeId = "Test"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,4 +30,5 @@ class Chofer_viajeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+   
 }

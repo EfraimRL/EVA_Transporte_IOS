@@ -11,6 +11,9 @@ import UIKit
 class Proveedor_ViajeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblPViaje: UILabel!
+    func configureCell(listaDeObjetos: listaDeObjetos){
+        lblPViaje.text = listaDeObjetos.nombre
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

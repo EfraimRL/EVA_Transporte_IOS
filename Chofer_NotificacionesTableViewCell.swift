@@ -1,18 +1,17 @@
 //
-//  Chofer_DetalleDeViajeTableViewCell.swift
+//  Chofer_NotificacionesTableViewCell.swift
 //  EVA_Transporte_IOS
 //
-//  Created by MAC 2 on 26/09/17.
+//  Created by MAC 2 on 18/10/17.
 //  Copyright © 2017 EVA Transporte. All rights reserved.
 //
 
 import UIKit
-import GoogleMaps
 
-class Chofer_DetalleDeViajeTableViewCell: UITableViewCell {
+class Chofer_NotificacionesTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lblCVDetalle: UILabel!
-    @IBOutlet weak var lblCVCampo: UILabel!
+    @IBOutlet weak var lblDescripcion: UILabel!
+    @IBOutlet weak var imgIcono: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,6 +22,5 @@ class Chofer_DetalleDeViajeTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 
 }
