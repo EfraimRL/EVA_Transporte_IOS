@@ -37,7 +37,7 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celProve", for: indexPath) as! Proveedor_ViajeTableViewCell
-        celda.configureCell(listaDeObjetos: arrayViajes[indexPath.row] as! listaDeObjetos)
+        celda.configureCell(ViajesCh: arrayViajes[indexPath.row] as! ViajesCh)
         //let nombreCategoria = arrayCategoria[indexPath.row]["Nombre"]
         //let viaje = item[indexPath.row]
         //celda.lblPViaje?.text = viaje
@@ -45,8 +45,9 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ViajeId = itemId[indexPath.row]
-        print("Selecciono el numero ",indexPath.row," Detalle ",item[indexPath.row])
+        let obj = arrayViajes[indexPath.row] as! ViajesCh
+        ViajeId = "\(obj.id)"
+        print("Selecciono el numero ",indexPath.row," Detalle ",obj.details)
         performSegue(withIdentifier: "segClienteViajes-Detalles", sender: nil)
     }
     
@@ -59,6 +60,7 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         if self.arrayViajes.count == 0{
             tvProveedores.isHidden = true
         }
+        else{tvProveedores.isHidden = false}
         return self.arrayViajes.count
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,27 +70,34 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     }
     //Traer los datos
     func traerDatos(){
-        var driver_id = 1
+        let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)
         Alamofire.request("http://localhost:3000/travels2.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
-            print(response)
-            var segueV:String=""
+            //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)
                 if json == JSON.null {
                     let result = json["message"]
-                    
+                    print(result)
                 }
                 else{
-                    for (_,listaDeObjeto):(String,JSON) in json{
-                        let viaje = listaDeObjeto["nombre"].string!
+                    for (_,propDeViajes):(String,JSON) in json{
                         
-                        let viajeN = listaDeObjetos(nombre:viaje)
+                        let carrier_line_id = propDeViajes["carrier_line_id"].int!
+                        let company_id = propDeViajes["company_id"].int!
+                        let driver_id = "1"//propDeViajes["driver_id"].string!
+                        let id = propDeViajes["id"].int!
+                        let idDestine = "Destino"//propDeViajes["idDestine"].string!
+                        let idOrigen = "Origen"//propDeViajes["idOrigen"].string!
+                        let details = propDeViajes["details"].string!
+                        
+                        let viajeN = ViajesCh(carrier_line_id: carrier_line_id, company_id:company_id, driver_id:driver_id,id:id, idDestine:idDestine, idOrigen:idOrigen, details:details)
+                        
                         self.arrayViajes.append(viajeN)
-                        
                     }
+                    self.tvProveedores.reloadData()
                 }
             }
             else{print("otroElse ")}

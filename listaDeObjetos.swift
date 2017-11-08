@@ -59,3 +59,31 @@ public class listaDeObjetos {
         estado = false
     }
 }
+
+public class ViajesCh {
+    var carrier_line_id: Int
+    var company_id: Int
+    var driver_id: String
+    var id: Int
+    var idDestine: String
+    var idOrigen: String
+    var details: String
+    init(carrier_line_id: Int,company_id:Int,driver_id:String,id:Int,idDestine:String,idOrigen:String,details:String) {
+        self.carrier_line_id = carrier_line_id
+        self.company_id = company_id
+        self.driver_id = driver_id
+        self.id = id
+        self.idDestine = idDestine
+        self.idOrigen = idOrigen
+        self.details = details
+    }
+    init() {
+        self.carrier_line_id = 0
+        self.company_id = 0
+        self.driver_id = ""
+        self.id = 0
+        self.idDestine = ""
+        self.idOrigen = ""
+        self.details = ""
+    }
+}
