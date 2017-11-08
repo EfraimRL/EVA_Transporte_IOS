@@ -31,6 +31,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         self.tvChoferes.dataSource = self
         self.tvChoferes.delegate = self
         print(company_id)
+        traerLista()
         
     }
     
@@ -98,6 +99,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
             }
             else{print("No hgubo respuesta ")}
         }
+        
         
     }
 

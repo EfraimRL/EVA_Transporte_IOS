@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
@@ -19,15 +21,17 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     var arrayViajes = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let json = TraerJSON()
+        /*let json = TraerJSON()
         let listaViajes = json.objJSON(url1: "http://...",tipo:"Cliente",vista: "lista",id: nombreId) as! Lista
         print("Lista ",listaViajes)
         let nombre = listaViajes.nombre
         print("Cliente ",nombre)
         self.item = listaViajes.item
         self.itemId = listaViajes.itemId
+        */
         self.tvProveedores.dataSource = self
         self.tvProveedores.delegate = self
+        traerDatos()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,5 +66,33 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         destino.clienteId = nombreId
         destino.viajeId = ViajeId
     }
-
+    //Traer los datos
+    func traerDatos(){
+        var driver_id = 1
+        let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
+        print(dataSend)
+        Alamofire.request("http://localhost:3000/travels2.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+            print(response)
+            var segueV:String=""
+            if response.result.value != nil {
+                let json = JSON(response.result.value!)
+                print(json)
+                if json == JSON.null {
+                    let result = json["message"]
+                    
+                }
+                else{
+                    for (_,listaDeObjeto):(String,JSON) in json{
+                        let viaje = listaDeObjeto["nombre"].string!
+                        
+                        let viajeN = listaDeObjetos(nombre:viaje)
+                        self.arrayViajes.append(viajeN)
+                        
+                    }
+                }
+            }
+            else{print("otroElse ")}
+        }
+        
+    }
 }
