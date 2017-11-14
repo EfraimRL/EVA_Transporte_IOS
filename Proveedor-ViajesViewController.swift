@@ -63,10 +63,12 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         else{tvProveedores.isHidden = false}
         return self.arrayViajes.count
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destino  = segue.destination as! Proveedor_DetalleDeViajeViewController
         destino.clienteId = nombreId
         destino.viajeId = ViajeId
+        //algo
     }
     //Traer los datos
     func traerDatos(){
