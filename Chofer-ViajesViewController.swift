@@ -97,7 +97,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
                     }
                 }
             }
-            else{print("No hgubo respuesta ")}
+            else{print("No hubo respuesta ")}
         }
         
         
