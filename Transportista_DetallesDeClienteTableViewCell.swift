@@ -10,6 +10,7 @@ import UIKit
 
 class Transportista_DetallesDeClienteTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblKey: UILabel!
     @IBOutlet var lblTClD: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

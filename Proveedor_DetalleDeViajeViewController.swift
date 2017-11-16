@@ -11,6 +11,7 @@ import GoogleMaps
 
 class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    @IBOutlet weak var map: UIView!
     var clienteId = ""
     var viajeId = ""
     var objDetViaje:ViajesCh?

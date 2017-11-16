@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 class Transportista_DetalleDeClienteViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+    @IBOutlet weak var map: UIView!
 
     @IBOutlet var tvTClienteDetalles: UITableView!
     var ciudades = ["Detalle","Cliente","Telefono"]

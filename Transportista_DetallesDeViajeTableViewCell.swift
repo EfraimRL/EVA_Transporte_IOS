@@ -11,6 +11,7 @@ import UIKit
 class Transportista_DetallesDeViajeTableViewCell: UITableViewCell {
 
     @IBOutlet var lblTVD: UILabel!
+    @IBOutlet weak var lblkey: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

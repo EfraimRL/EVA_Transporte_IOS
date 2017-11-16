@@ -9,69 +9,103 @@
 import UIKit
 import GoogleMaps
 class Transportista_DetallesDelChoferViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
-
-    var transportistaId = ""
-    var choferId = ""
+    
+    @IBOutlet weak var map: UIView!
+    var objDetConductor:DriverFull?
     @IBOutlet var tvTChoferDetalles: UITableView!
-    var ciudades = ["Detalle","Chofer","Transportista"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvTChoferDetalles.dataSource = self
         self.tvTChoferDetalles.delegate = self
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         self.asd = view
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        sacarDetalles()
+        mostrarMapa()
     }
     
     //Seccion de Mapa
-    @IBAction func btnMostrarMapa(_ sender: Any) {
-        mostrarMapa()
-    }
+    @IBAction func btnMostrarMapa(_ sender: Any) {}
+    
     var asd:Any = self
     var mapa:Any = self
+//Mapa
     func mostrarMapa(){
-        
-        //Mapa
-        // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 6.0)
+        let lat1 = 27.509180
+        let long1 = -99.561880
+        let lat2 = 27.3
+        let long2 = -99.3
+        let camera = GMSCameraPosition.camera(withLatitude: lat1, longitude: long1, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: 300, height: 300), camera: camera)
         mapView.isMyLocationEnabled = true
-        //mapView.center = self.view.center
-        //self.view.addSubview(mapView)
+        mapView.settings.myLocationButton = true
         mapa = mapView
         
-        // Creates a marker in the center of the map.
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapView
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "X",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
         
-        self.view = self.mapa as! UIView
-        
+        //self.view = self.mapa as! UIView
+        self.map.addSubview(self.mapa as! UIView)
     }
     func salirDelMapa() -> Void {
         print("salir del mapa")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
         self.view = self.asd as! UIView
     }
+//Definir valores de los detalles
+    var detalles = [""]          //Key o nombre clave de cada campo
+    var detallesMostrar = [""]   //(key)Nombre de campo, para mostrar
+    var detalle = ["":""]        //Valor para cada key
     
-    //Seccion de detalles
+    func sacarDetalles(){
+        detalles = ["id","code","department","names","lastnames","rfc","hiredDate","created_at","updated_at","url"]
+        detallesMostrar = ["ID","Còdigo","Departamento","Nombre(s)","Apellidos","RFC","Contratado en","Creado","Actualizado","URL"]
+        
+        detalle = [
+            "id": "",
+            "code": "",
+            "department": "",
+            "names": "",
+            "lastnames": "",
+            "rfc": "",
+            "hiredDate": "",
+            "created_at": "",
+            "updated_at": "",
+            "url": ""
+            ]
+        
+        //print(objDetViaje!.details)
+        detalle["id"] = "\(objDetConductor!.id)"
+        detalle["code"] = objDetConductor?.code
+        detalle["department"] = objDetConductor?.department
+        detalle["names"] = objDetConductor?.names
+        detalle["lastnames"] = objDetConductor?.lastnames
+        detalle["rfc"] = objDetConductor?.rfc
+        detalle["hiredDate"] = objDetConductor?.hiredDate
+        detalle["created_at"] = objDetConductor?.created_at
+        detalle["updated_at"] = objDetConductor?.updated_at
+        detalle["url"] = objDetConductor?.url
+        
+    }
+//Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ciudades.count
+        return self.detalles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTCD", for: indexPath) as! Transportista_DetallesDeChoferTableViewCell
-        let arrayCiudades =   ciudades[indexPath.row]
-        celda.lblTCD?.text = arrayCiudades
+        let value = detalle[detalles[indexPath.row]]!
+        let key = detallesMostrar[indexPath.row]
+        celda.lblKey?.text = "\(key):"
+        celda.lblTCD?.text = value
         return celda
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }

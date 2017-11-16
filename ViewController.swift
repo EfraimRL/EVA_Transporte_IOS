@@ -35,19 +35,17 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         
     }
     
-    
-    //Variables temporales
+    /*Variables temporales
     let Us1 = "Chofer"
     let Us2 = "Cliente"
     let Us3 = "Transp"
     let Ps1 = "123"
     let Ps2 = "456"
     let Ps3 = "789"
-    //*-
+    */
     var segue = "segChofer"
     //Variables para la conexion y login
     let login_url = "http://localhost:3000/users/sign_in"
-    let checksession_url = "http://www.kaleidosblog.com/tutorial/login/api/CheckSession"
     
     @IBOutlet var txtUser: UITextField!
     @IBOutlet var txtPass: UITextField!
@@ -66,6 +64,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
             //Alert: No deje campos vacios
             notificaciones()
         }
+        /*
         else{
             if txtUser.text == Us1 {
                 if txtPass.text == Ps1 {
@@ -84,6 +83,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
             }
             else{notificaciones()}
         }
+        */
         
     }
     override func viewDidLoad() {
@@ -108,8 +108,10 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
-    
+    /*
     //Login----------------------------------------------------------------------
+     
+     let checksession_url = "http://www.kaleidosblog.com/tutorial/login/api/CheckSession"
     func login_now(email:String, password:String)
     {
         let post_data: NSDictionary = NSMutableDictionary()
@@ -119,7 +121,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         post_data.setValue(password, forKey: "password")
         
         let url:URL = URL(string: login_url)!
-        //let session = URLSession.shared
+        let session = URLSession.shared
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
@@ -201,6 +203,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         
         //login_button.setTitle("Login", for: .normal)
     }
+    */
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         completionHandler([.alert, .sound])
@@ -272,6 +275,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
     }
     
     func otroIntento(){
+        validarUsuario()
         email = txtUser.text!
         password = txtPass.text!
         let dataSend = ["email": txtUser.text!, "password": txtPass.text!] as [String:Any]
@@ -284,7 +288,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
                 print(json)
                 if json == JSON.null {
                     let result = json["message"]
-                    print(result)
+                    print("Nulo: ",result)
                 }
                 else{
                     if json["rol"] == "Transportista"{segueV = "segTransportista"}
@@ -295,11 +299,21 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
                     self.performSegue(withIdentifier: segueV, sender: nil)
                 }
             }
-            else{print("otroElse ")}
+            else{print("No hay respuesta del Web Service")}
         }
         
     }
-    
+    @IBAction func llenar(_ sender: Any) {
+        let opcion = txtUser.text
+        switch opcion {
+        case "conductor@hotmail.com"?: txtUser.text = "cliente@hotmail.com"
+        case "cliente@hotmail.com"?: txtUser.text = "efraruiz94@hotmail.com"
+        case "efraruiz94@hotmail.com"?: txtUser.text = "conductor@hotmail.com"
+        default:
+            txtUser.text = "conductor@hotmail.com"
+        }
+        txtPass.text = "123456"
+    }
     
 }
 

@@ -71,10 +71,6 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayViajes.count == 0{
             tvChoferes.isHidden = true
@@ -120,5 +116,10 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
             else{print("No hubo resultados del servidor ")}
         }
         
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
 }

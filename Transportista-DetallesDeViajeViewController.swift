@@ -10,6 +10,9 @@ import UIKit
 import GoogleMaps
 class Transportista_DetallesDeViajeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate{
 
+    
+    @IBOutlet weak var map: UIView!
+    
     var transportistaId = ""
     var viajeId = ""
     @IBOutlet var tvTViajeDetalles: UITableView!

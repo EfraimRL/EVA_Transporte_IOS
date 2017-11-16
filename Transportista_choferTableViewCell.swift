@@ -11,6 +11,9 @@ import UIKit
 class Transportista_choferTableViewCell: UITableViewCell {
 
     @IBOutlet var lblTC: UILabel!
+    func configureCell(DriverFull:DriverFull){
+        lblTC.text = DriverFull.names
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
