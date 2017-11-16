@@ -19,6 +19,7 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     var itemId = [""]
     var ViajeId = "" //Viaje Seleccionado
     var arrayViajes = [AnyObject]()
+    var detalles:ViajesCh?
     override func viewDidLoad() {
         super.viewDidLoad()
         /*let json = TraerJSON()
@@ -38,17 +39,16 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celProve", for: indexPath) as! Proveedor_ViajeTableViewCell
         celda.configureCell(ViajesCh: arrayViajes[indexPath.row] as! ViajesCh)
-        //let nombreCategoria = arrayCategoria[indexPath.row]["Nombre"]
-        //let viaje = item[indexPath.row]
-        //celda.lblPViaje?.text = viaje
+        
         return celda
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let obj = arrayViajes[indexPath.row] as! ViajesCh
+        detalles = obj
         ViajeId = "\(obj.id)"
         print("Selecciono el numero ",indexPath.row," Detalle ",obj.details)
-        performSegue(withIdentifier: "segClienteViajes-Detalles", sender: nil)
+        performSegue(withIdentifier: "segClienteViajes-Detalles", sender: obj)
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,9 +66,12 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destino  = segue.destination as! Proveedor_DetalleDeViajeViewController
+        if let detalleSeleccionado = sender as? ViajesCh{
+            destino.objDetViaje = detalleSeleccionado
+        }
         destino.clienteId = nombreId
         destino.viajeId = ViajeId
-        //algo
+        //destino.objDetViaje = detalles
     }
     //Traer los datos
     func traerDatos(){
@@ -87,15 +90,15 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
                 else{
                     for (_,propDeViajes):(String,JSON) in json{
                         
-                        let carrier_line_id = propDeViajes["carrier_line_id"].int!
-                        let company_id = propDeViajes["company_id"].int!
-                        let driver_id = "1"//propDeViajes["driver_id"].string!
                         let id = propDeViajes["id"].int!
                         let idDestine = "Destino"//propDeViajes["idDestine"].string!
                         let idOrigen = "Origen"//propDeViajes["idOrigen"].string!
+                        let company_id = propDeViajes["company_id"].int!
+                        let driver_id = "1"//propDeViajes["driver_id"].string!
                         let details = propDeViajes["details"].string!
+                        let carrier_line_id = propDeViajes["carrier_line_id"].int!
                         
-                        let viajeN = ViajesCh(carrier_line_id: carrier_line_id, company_id:company_id, driver_id:driver_id,id:id, idDestine:idDestine, idOrigen:idOrigen, details:details)
+                        let viajeN = ViajesCh(id: id,hoursTraveled: "", hoursPlanned:"",idOrigen: idOrigen,idDestine: idDestine,created_at:"",details: details,company_id: company_id,driver_id:driver_id, load_id:0,state_id:0,truck_id:0,kms:"",gpsReads:"",updated_at:"",mt_id:0,gpsDate:"",carrier_line_id: carrier_line_id,cost:0.0)
                         
                         self.arrayViajes.append(viajeN)
                     }

@@ -16,7 +16,7 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
         super.viewDidLoad()
         self.tvTNtificaciones.dataSource = self
         self.tvTNtificaciones.delegate = self
-        var json = TraerJSON()
+        //var json = TraerJSON()
         
     }
 

@@ -41,9 +41,12 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         
         //listar
         //celda.configureCell(listaDeObjetos: arrayViajes[indexPath.row] as! listaDeObjetos)
-        
+        /*
         let Viaje =   item[indexPath.row]
         celda.lblViaje?.text = Viaje
+        */
+        celda.configureCell(ViajesCh: arrayViajes[indexPath.row] as! ViajesCh)
+        
         return celda
     }
 
@@ -54,13 +57,18 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         celda.lblViaje?.text
         */
         ViajeId = item[indexPath.row]
+        let send = arrayViajes[indexPath.row]
         //print("Selecciono el numero ",indexPath.row," Detalle ",item[indexPath.row])
-        performSegue(withIdentifier: "segChofer-Detalles", sender: nil)
+        performSegue(withIdentifier: "segChofer-Detalles", sender: send)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destino  = segue.destination as! Chofer_DetalleDeViajeViewController
-        destino.choferId = nombreId
-        destino.ViajeId = ViajeId
+        //destino.choferId = nombreId
+        //destino.ViajeId = ViajeId
+        if let detalleSeleccionado = sender as? ViajesCh{
+            print(detalleSeleccionado.details)
+            destino.objDetViaje = detalleSeleccionado
+        }
     }
     
     
@@ -72,7 +80,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         if self.arrayViajes.count == 0{
             //tvChoferes.isHidden = true
         }
-        return self.item.count
+        return self.arrayViajes.count
     }
     @IBAction func btnSalir(_ sender: Any) {
         performSegue(withIdentifier: "segChoferViajesSalir", sender: nil)
@@ -80,27 +88,38 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     
     //Trae datos y guardar en un array
     func traerLista(){
-        Alamofire.request("http://localhost:3000/travels.json").responseJSON{ response in
-            print(response)
+        let driver_id = 1
+        let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
+        print(dataSend)
+        Alamofire.request("http://localhost:3000/travels2.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+            //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
+                print(json)
                 if json == JSON.null {
                     let result = json["message"]
+                    print(result)
                 }
                 else{
-                    for (_,listaDeObjeto):(String,JSON) in json{
-                        let viaje = listaDeObjeto["nombre"].string!
+                    for (_,propDeViajes):(String,JSON) in json{
                         
-                        let viajeN = listaDeObjetos(nombre:viaje)
+                        let id = propDeViajes["id"].int!
+                        let idDestine = "Destino"//propDeViajes["idDestine"].string!
+                        let idOrigen = "Origen"//propDeViajes["idOrigen"].string!
+                        let company_id = propDeViajes["company_id"].int!
+                        let driver_id = "1"//propDeViajes["driver_id"].string!
+                        let details = propDeViajes["details"].string!
+                        let carrier_line_id = propDeViajes["carrier_line_id"].int!
+                        
+                        let viajeN = ViajesCh(id: id,hoursTraveled: "", hoursPlanned:"",idOrigen: idOrigen,idDestine: idDestine,created_at:"",details: details,company_id: company_id,driver_id:driver_id, load_id:0,state_id:0,truck_id:0,kms:"",gpsReads:"",updated_at:"",mt_id:0,gpsDate:"",carrier_line_id: carrier_line_id,cost:0.0)
+                        
                         self.arrayViajes.append(viajeN)
-                        
                     }
+                    self.tvChoferes.reloadData()
                 }
             }
-            else{print("No hubo respuesta ")}
+            else{print("otroElse ")}
         }
         
-        
     }
-
 }

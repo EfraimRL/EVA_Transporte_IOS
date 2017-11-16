@@ -12,8 +12,9 @@ class Chofer_viajeTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var lblViaje: UILabel!
-    func configureCell(listaDeObjetos: listaDeObjetos){
-        lblViaje.text = listaDeObjetos.nombre
+    
+    func configureCell(ViajesCh: ViajesCh){
+        lblViaje.text = "\(ViajesCh.details)"
     }
     var choferId = "0001"
     var telefono = "1234567"

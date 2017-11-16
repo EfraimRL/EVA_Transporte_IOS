@@ -13,6 +13,7 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
     var choferId = ""
     var descripciones = ["Desastre Natural","Falla del Vehiculo","Documentacion","Otro"]
     
+    @IBOutlet weak var vista: UIView!
     @IBOutlet weak var tvChoferNotificaciones: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
     //Carga las celdasd
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celCDNoti", for: indexPath) as! Chofer_NotificacionesTableViewCell
+        celda.frame.size.height = vista.frame.size.height/4
         //let nombreCategoria = arrayCategoria[indexPath.row]["Nombre"]
         let Detalle = descripciones[indexPath.row]
         celda.lblDescripcion?.text = Detalle

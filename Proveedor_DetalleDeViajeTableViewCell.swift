@@ -11,6 +11,9 @@ import UIKit
 class Proveedor_DetalleDeViajeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblPDetalle: UILabel!
+    @IBOutlet weak var lblKey: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

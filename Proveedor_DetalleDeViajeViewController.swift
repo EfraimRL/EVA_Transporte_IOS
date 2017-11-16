@@ -13,15 +13,38 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     
     var clienteId = ""
     var viajeId = ""
+    var objDetViaje:ViajesCh?
+    
     @IBOutlet weak var tvProveedorViajeDetalles: UITableView!
-
+    var nombres = ["id","hoursTraveled","hoursPlanned","idDestine","idrigen","created_at","details","company_id","driver_id","load_id","state_id","truck_id","kms","gpsReads","updated_at","mt_id","gpsDate","carrier_line_id","cost"]
+    var nombre = [
+        "id":"",
+        "hoursTraveled":"",
+        "hoursPlanned":"",
+        "idDestine":"",
+        "idrigen":"",
+        "created_at":"",
+        "details":"",
+        "company_id":"",
+        "driver_id":"",
+        "load_id":"",
+        "state_id":"",
+        "truck_id":"",
+        "kms":"",
+        "gpsReads":"",
+        "updated_at":"",
+        "mt_id":"",
+        "gpsDate":"",
+        "carrier_line_id":"",
+        "cost":""]
+    var detalle = [AnyObject]()
     var ciudades = ["Detalle","Destino","Origen","Telefono"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvProveedorViajeDetalles.dataSource = self
         self.tvProveedorViajeDetalles.delegate = self
-        
+        sacarDetalles()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         self.asd = view
     }
@@ -29,13 +52,33 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+    func sacarDetalles(){
+        nombre["id"] = "\(objDetViaje!.id)"
+        nombre["hoursTraveled"] = objDetViaje?.hoursTraveled
+        nombre["hoursPlanned"] = objDetViaje?.hoursPlanned
+        nombre["idDestine"] = objDetViaje?.idDestine
+        nombre["idrigen"] = objDetViaje?.idOrigen
+        nombre["created_at"] = objDetViaje?.created_at
+        nombre["details"] = objDetViaje?.details
+        nombre["company_id"] = "\(objDetViaje!.company_id)"
+        nombre["driver_id"] = "\(objDetViaje!.driver_id)"
+        nombre["state_id"] = "\(objDetViaje!.state_id)"
+        nombre["truck_id"] = "\(objDetViaje!.truck_id)"
+        nombre["kms"] = objDetViaje?.kms
+        nombre["gpsReads"] = objDetViaje?.gpsReads
+        nombre["updated_at"] = objDetViaje?.updated_at
+        nombre["mt_id"]  = "\(objDetViaje!.mt_id)"
+        nombre["gpsDate"] = objDetViaje?.gpsDate
+        nombre["carrier_line_id"] = "\(objDetViaje!.carrier_line_id)"
+        nombre["cost"] = "\(objDetViaje!.cost)"
+    }
 //Seccion de Mapa
     @IBAction func btnMostrarMapa(_ sender: Any) {
         mostrarMapa()
     }
     var asd:Any = self
     var mapa:Any = self
+    
     func mostrarMapa(){
         
         //Mapa
@@ -67,14 +110,17 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     
 //Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ciudades.count
+        return self.nombre.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celPVD", for: indexPath) as! Proveedor_DetalleDeViajeTableViewCell
-        let arrayCiudades =   ciudades[indexPath.row]
-        celda.lblPDetalle?.text = arrayCiudades
+        let value = nombre[nombres[indexPath.row]]!
+        let key = nombres[indexPath.row]
+        celda.lblKey?.text = key
+        celda.lblPDetalle?.text = value
+        print("key:",key," value:",value)
         return celda
     }
     

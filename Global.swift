@@ -8,5 +8,5 @@
 
 import Foundation
 
-
+//Variables globales
 var company_id = 0
