@@ -29,6 +29,7 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         */
         self.tvChoferesLista.delegate = self
         self.tvChoferesLista.dataSource = self
+        //self.tvChoferesLista.allowsSelection = true
         Listar()
     }
     
