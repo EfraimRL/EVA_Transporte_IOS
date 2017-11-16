@@ -43,8 +43,8 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let celda = tableView.cellForRow(at: indexPath) as! Chofer_NotificacionesTableViewCell
-        print("Selecciono el numero ",indexPath.row," Detalle ",celda.lblDescripcion?.text!)
+        //let celda = tableView.cellForRow(at: indexPath) as! Chofer_NotificacionesTableViewCell
+        //print("Selecciono el numero ",indexPath.row," Detalle ",celda.lblDescripcion?.text!)
     }
 
 }

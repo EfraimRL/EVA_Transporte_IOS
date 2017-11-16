@@ -43,11 +43,11 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
         */
         self.tvChoferViajeDetalles.dataSource = self
         self.tvChoferViajeDetalles.delegate = self
-        
+        /*
         let json = TraerJSON()
         let detallesJSON = json.objJSON(url1: "http://...",tipo:"Chofer",vista:"detalles",id:ViajeId) as! DetallesGeneral
-        self.lblEstado.text = detallesJSON.estado.rawValue
-        
+        //self.lblEstado.text = detallesJSON.estado.rawValue*/
+        self.lblEstado.text = "\(objDetViaje!.state_id)"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         vistaPantallaTotal = view
         mostrarMapa()
@@ -58,7 +58,7 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destino  = segue.destination as! Chofer_NotificacionesViewController
-        destino.choferId = choferId
+        destino.choferId = (objDetViaje?.driver_id)!
     }
     
 //Seccion de Mapa
@@ -67,15 +67,13 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     var mapa:Any = self
     
     func mostrarMapa(){
-        print(map.frame.size.width)
         let lat1 = 27.509180
         let long1 = -99.561880
         let lat2 = 27.3
         let long2 = -99.3
-        //Mapa
     // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: lat1, longitude: long1, zoom: 6.0)
          mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width:	viewMap.frame.size.width, height: viewMap.frame.size.height), camera: camera)
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
@@ -112,12 +110,13 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     }
 
 //Definir valores de los detalles
-    var nombres = [""]
-    var nombre = ["":""]
+    var nombres = [""]          //Key o nombre clave de cada campo
+    var nombresMostrar = [""]   //(key)Nombre de campo, para mostrar
+    var nombre = ["":""]        //Valor para cada key
     
     func sacarDetalles(){
         nombres = ["id","hoursTraveled","hoursPlanned","idDestine","idrigen","created_at","details","company_id","driver_id","load_id","state_id","truck_id","kms","gpsReads","updated_at","mt_id","gpsDate","carrier_line_id","cost"]
-        //nombres = ["ID","horas viajadas","Horas planeadas","Destino","Origen","Creado","Detalle","Id Compañia","Id Conductor","Id Carga","Id de Estado","Id Troka","kms","GPS","Actualizado","Id MT","Fecha GPS","ID de linea","Costo"]
+        nombresMostrar = ["ID","horas viajadas","Horas planeadas","Destino","Origen","Creado","Detalle","Id Compañia","Id Conductor","Id Carga","Id de Estado","Id Troka","kms","GPS","Actualizado","Id MT","Fecha GPS","ID de linea","Costo"]
         
         nombre = [
             "id":"",
@@ -140,7 +139,7 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
             "carrier_line_id":"",
             "cost":""]
 
-        print(objDetViaje?.details)
+        print(objDetViaje!.details)
         nombre["id"] = "\(objDetViaje!.id)"
         nombre["hoursTraveled"] = objDetViaje?.hoursTraveled
         nombre["hoursPlanned"] = objDetViaje?.hoursPlanned
@@ -171,7 +170,7 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
         let celda = tableView.dequeueReusableCell(withIdentifier: "celCVD", for: indexPath) as! Chofer_DetalleDeViajeTableViewCell
         //let nombreCategoria = arrayCategoria[indexPath.row]["Nombre"]
         let value = nombre[nombres[indexPath.row]]!
-        let key = nombres[indexPath.row]
+        let key = nombresMostrar[indexPath.row]
         celda.lblCVCampo?.text = "\(key):"
         celda.lblCVDetalle?.text = value
         return celda

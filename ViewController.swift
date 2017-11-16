@@ -119,7 +119,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         post_data.setValue(password, forKey: "password")
         
         let url:URL = URL(string: login_url)!
-        let session = URLSession.shared
+        //let session = URLSession.shared
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
@@ -161,7 +161,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
             //if let data_block = server_response["data"] as? NSDictionary
             //{
             //= data_block
-            print(server_response["email"])
+            print(server_response["email"]!)
                 if let session_data = server_response["email"] as? String
                 {
                     self.login_session = session_data
@@ -284,7 +284,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
                 print(json)
                 if json == JSON.null {
                     let result = json["message"]
-                    
+                    print(result)
                 }
                 else{
                     if json["rol"] == "Transportista"{segueV = "segTransportista"}

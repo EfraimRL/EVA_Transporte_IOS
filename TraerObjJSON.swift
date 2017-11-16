@@ -18,7 +18,7 @@ class TraerJSON {
             do {
                 let parsedData = try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments)
                 //Store response in NSDictionary for easy access
-                let dict = parsedData as? AnyObject
+                let dict = parsedData as AnyObject
                 //print("Dictionary ",dict)
                 if vista == "detalles" {
                     if let detalleJSON = Detalles.init(json: dict as! [String:Any], tipo: tipo,ide:id){
@@ -27,8 +27,8 @@ class TraerJSON {
                     }
                 }
                 if vista == "lista"{
-                    let myJSON = dict?["currently"] as! [String:Any]
-                    
+                    let myJSON = dict["currently"] as! [String:Any]
+                    print(myJSON)
                     if let listaJson = Viajes.init(json: dict as! [String:Any], tipo: tipo){
                         list = listaJson.returnLista()
                         return list

@@ -21,13 +21,14 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     var arrayViajes = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let json = TraerJSON()
+        /*let json = TraerJSON()
         let listaViajes = json.objJSON(url1: "http://...",tipo:"Chofer",vista:"lista",id:nombreId) as! Lista
         print("Lista ",listaViajes)
         let nombre = listaViajes.nombre
         print("Chofer ",nombre)
         self.item = listaViajes.item
         self.itemId = listaViajes.itemId
+         */
         self.tvChoferes.dataSource = self
         self.tvChoferes.delegate = self
         print(company_id)
@@ -38,10 +39,10 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celV", for: indexPath) as! Chofer_viajeTableViewCell
-        
+        /*
         //listar
         //celda.configureCell(listaDeObjetos: arrayViajes[indexPath.row] as! listaDeObjetos)
-        /*
+        
         let Viaje =   item[indexPath.row]
         celda.lblViaje?.text = Viaje
         */
@@ -56,7 +57,6 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         let celda = tableView.cellForRow(at: indexPath) as! Chofer_viajeTableViewCell
         celda.lblViaje?.text
         */
-        ViajeId = item[indexPath.row]
         let send = arrayViajes[indexPath.row]
         //print("Selecciono el numero ",indexPath.row," Detalle ",item[indexPath.row])
         performSegue(withIdentifier: "segChofer-Detalles", sender: send)
@@ -64,13 +64,12 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destino  = segue.destination as! Chofer_DetalleDeViajeViewController
         //destino.choferId = nombreId
-        //destino.ViajeId = ViajeId
+        destino.ViajeId = "solar"
         if let detalleSeleccionado = sender as? ViajesCh{
             print(detalleSeleccionado.details)
             destino.objDetViaje = detalleSeleccionado
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -78,12 +77,12 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayViajes.count == 0{
-            //tvChoferes.isHidden = true
+            tvChoferes.isHidden = true
+        }
+        else{
+            tvChoferes.isHidden = false
         }
         return self.arrayViajes.count
-    }
-    @IBAction func btnSalir(_ sender: Any) {
-        performSegue(withIdentifier: "segChoferViajesSalir", sender: nil)
     }
     
     //Trae datos y guardar en un array
@@ -98,7 +97,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
                 print(json)
                 if json == JSON.null {
                     let result = json["message"]
-                    print(result)
+                    print("Mensaje traido de server (json)",result)
                 }
                 else{
                     for (_,propDeViajes):(String,JSON) in json{
@@ -118,7 +117,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
                     self.tvChoferes.reloadData()
                 }
             }
-            else{print("otroElse ")}
+            else{print("No hubo resultados del servidor ")}
         }
         
     }

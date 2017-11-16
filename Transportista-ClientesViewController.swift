@@ -39,7 +39,7 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
         return celda
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino = segue.destination as! Transportista_ClienteViajesViewController
+        //let destino = segue.destination as! Transportista_ClienteViajesViewController
         
         //destino.idDeCliente =
     }
