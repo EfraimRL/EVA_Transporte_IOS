@@ -11,6 +11,10 @@ import UIKit
 class Transportista_clienteTableViewCell: UITableViewCell {
 
     @IBOutlet var lblTClientes: UILabel!
+    
+    func configureCell(ClientFull: ClientFull){
+        lblTClientes.text = ClientFull.names
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

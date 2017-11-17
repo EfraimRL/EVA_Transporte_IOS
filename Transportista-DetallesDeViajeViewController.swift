@@ -16,6 +16,8 @@ class Transportista_DetallesDeViajeViewController: UIViewController,UITableViewD
     var transportistaId = ""
     var viajeId = ""
     @IBOutlet var tvTViajeDetalles: UITableView!
+    var objDetViaje:ViajesCh?
+    
     var ciudades = ["Detalle","Viaje","Desde Transportista"]
     override func viewDidLoad() {
         super.viewDidLoad()

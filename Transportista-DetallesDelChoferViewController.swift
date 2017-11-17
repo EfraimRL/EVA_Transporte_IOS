@@ -11,8 +11,9 @@ import GoogleMaps
 class Transportista_DetallesDelChoferViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var map: UIView!
-    var objDetConductor:DriverFull?
+    
     @IBOutlet var tvTChoferDetalles: UITableView!
+    var objDetConductor:DriverFull?
     
     override func viewDidLoad() {
         super.viewDidLoad()

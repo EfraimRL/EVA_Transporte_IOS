@@ -32,7 +32,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         self.tvChoferes.dataSource = self
         self.tvChoferes.delegate = self
         print(company_id)
-        traerLista()
+        Listar()
         
     }
     
@@ -81,8 +81,8 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         return self.arrayViajes.count
     }
     
-    //Trae datos y guardar en un array
-    func traerLista(){
+    //Trae datos del WS y lo guarda en un array que muestra en lista
+    func Listar(){
         let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)
@@ -113,7 +113,11 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
                     self.tvChoferes.reloadData()
                 }
             }
-            else{print("No hubo resultados del servidor ")}
+            else{
+                alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default,sender: self)
+                print("No hubo resultados del servidor ")
+                
+            }
         }
         
     }

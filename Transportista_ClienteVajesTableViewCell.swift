@@ -11,6 +11,9 @@ import UIKit
 class Transportista_ClientesVajesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblTClienteViajes: UILabel!
+    func configureCell(ViajesCh: ViajesCh){
+        lblTClienteViajes.text = ViajesCh.details
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

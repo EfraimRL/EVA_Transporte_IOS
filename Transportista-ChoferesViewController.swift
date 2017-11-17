@@ -32,13 +32,13 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         //self.tvChoferesLista.allowsSelection = true
         Listar()
     }
-    
+    //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTC", for: indexPath) as! Transportista_choferTableViewCell
         celda.configureCell(DriverFull: arrayClientes[indexPath.row] as! DriverFull)
         return celda
     }
-    
+    //Seleccionar celda y enviar a detalles
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let send = arrayClientes[indexPath.row]
         print("Selecciono el numero ",indexPath.row," Nombre ",arrayClientes[indexPath.row])
@@ -46,12 +46,14 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destino  = segue.destination as! Transportista_DetallesDelChoferViewController
+        //si hay un objeto, se envia a la vista de detalles
         if let detalleSeleccionado = sender as? DriverFull{
-            print(detalleSeleccionado.names)
+            print("Nombre de conductor: ",detalleSeleccionado.names)
             destino.objDetConductor = detalleSeleccionado
         }
     }
     
+    //Si hay o no registros como respuesta
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayClientes.count == 0{
             tvChoferesLista.isHidden = true

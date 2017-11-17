@@ -7,40 +7,107 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class Transportista_ClientesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet var tvTClientesLista: UITableView!
-    var ciudades = ["Cliente 1","Cliente 2","Cliente 3","Cliente 4","Cliente 5","Cliente 6","Cliente 7"]
+    var arrayClientes = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        pagina = "drivers.json"
         self.tvTClientesLista.delegate = self
         self.tvTClientesLista.dataSource = self
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        Listar()
     }
     
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ciudades.count
-    }
-    
+    //Listar celda(por celda) de cliente
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTCl", for: indexPath) as! Transportista_clienteTableViewCell
-        
-        //let nombreCategoria = arrayCategoria[indexPath.row]["Nombre"]
-        let arrayCiudades =   ciudades[indexPath.row]
-        celda.lblTClientes?.text = arrayCiudades
+        celda.configureCell(ClientFull: arrayClientes[indexPath.row] as! ClientFull)
         return celda
     }
+    
+    //Al seleccionar celda, enviar a detalles
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let send = arrayClientes[indexPath.row]
+        print("Selecciono el numero ",indexPath.row," de la lista, detalle de viaje ",arrayClientes[indexPath.row])
+        performSegue(withIdentifier: "segTCliente-TCViajes", sender: send)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //let destino = segue.destination as! Transportista_ClienteViajesViewController
+        let destino  = segue.destination as! Transportista_ClienteViajesViewController
+        //si hay un objeto, se envia a la vista de detalles
+        if let detalleSeleccionado = sender as? ClientFull{
+            print("Cliente ID: ", detalleSeleccionado.id)
+            destino.idDeCliente = detalleSeleccionado.id
+        }
+    }
+    
+    //Si hay o no registros como respuesta, muestra u oculta la Tabla (UITableView)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.arrayClientes.count == 0{
+            tvTClientesLista.isHidden = true
+        }
+        else{
+            tvTClientesLista.isHidden = false
+        }
+        return self.arrayClientes.count
+    }
+    
+    //Trae los datos y lo guarda en un arrayViajes [tipo ViajesCh]. Con ese array llena la tabla
+    func Listar(){
+        let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
+        print(dataSend)
+        pagina = "drivers.json"
+        Alamofire.request("\(localhost)\(pagina)",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+            //print(response)
+            if response.result.value != nil {
+                let json = JSON(response.result.value!)
+                print("Clientes: ",json)
+                if json == JSON.null {
+                    let result = json["message"]
+                    alerta(titulo: "Error", mensaje: "No hay registros", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
+                    print("Mensaje traido de server (tipo json)",result)
+                }
+                else{
+                    for (_,propDeCliente):(String,JSON) in json{
+                        
+                        let id = propDeCliente["id"].int!
+                        let names = propDeCliente["names"].string!
+                        let lastnames = propDeCliente["names"].string!
+                        let address = propDeCliente["names"].string!
+                        let city = propDeCliente["names"].string!
+                        let state = propDeCliente["names"].string!
+                        let country = propDeCliente["names"].string!
+                        let region = propDeCliente["names"].string!
+                        let cp = propDeCliente["names"].string!
+                        let notes = propDeCliente["names"].string!
+                        let tel = propDeCliente["names"].string!
+                        let movil = propDeCliente["names"].string!
+                        let schedule = propDeCliente["names"].string!
+                        let active = propDeCliente["names"].string!
+                        let company_id = propDeCliente["names"].string!
+                        let user_id = propDeCliente["names"].string!
+                        let created_at = propDeCliente["names"].string!
+                        let updated_at = propDeCliente["names"].string!
+                        let url = propDeCliente["names"].string!
+                        
+                        let Cliente = ClientFull(id: "\(id)", names: names, lastnames: lastnames, address: address, city: city, state: state, country: country, region: region, cp: cp, notes: notes, tel: tel, movil: movil, schedule: schedule, active: active, company_id: company_id, user_id: user_id, created_at: created_at, updated_at: updated_at, url: url)
+                        
+                        self.arrayClientes.append(Cliente)
+                    }
+                    self.tvTClientesLista.reloadData()
+                }
+            }
+            else{
+                print("No hubo resultados del servidor ")
+            }
+        }
         
-        //destino.idDeCliente =
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
 }

@@ -299,7 +299,10 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
                     self.performSegue(withIdentifier: segueV, sender: nil)
                 }
             }
-            else{print("No hay respuesta del Web Service")}
+            else{
+                alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default, sender: self)
+                print("No hay respuesta del Web Service")
+            }
         }
         
     }

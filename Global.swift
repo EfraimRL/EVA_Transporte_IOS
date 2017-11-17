@@ -8,9 +8,15 @@
 
 import Foundation
 import UserNotifications
-//Variables globales
+import UIKit
+//Variables y funciones globales
 var company_id = 0
+var user_id = 0
 
+    //Variables de conexion
+
+var localhost = "http://localhost:3000/"
+var pagina = ""
 func notificaciones(delegate:UNUserNotificationCenterDelegate){
     //-*Para notificaciones
     UNUserNotificationCenter.current().delegate = delegate
@@ -30,4 +36,20 @@ func notificaciones(delegate:UNUserNotificationCenterDelegate){
         }
     }
     
+}
+
+func alerta(titulo:String,mensaje:String,cantidad_Botones:Int,estilo_controller:UIAlertControllerStyle,estilo_boton:UIAlertActionStyle, sender: UIViewController) {
+    // create the alert
+    let alert = UIAlertController(title: titulo, message: mensaje, preferredStyle: estilo_controller)
+    
+    // add an action (button)
+    alert.addAction(UIAlertAction(title: "OK", style: estilo_boton, handler: nil))
+    if cantidad_Botones == 1 {
+        
+    }
+    else {
+        alert.addAction(UIAlertAction(title: "Cancelar", style: estilo_boton, handler: nil))
+    }
+    // show the alert
+    sender.present(alert, animated: true, completion: nil)
 }
