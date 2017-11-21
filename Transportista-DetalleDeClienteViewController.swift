@@ -13,23 +13,19 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
 
     @IBOutlet var tvTClienteDetalles: UITableView!
     var objDetClienteViaje:ViajesCh?
-    var ciudades = ["Detalle","Cliente","Telefono"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvTClienteDetalles.dataSource = self
         self.tvTClienteDetalles.delegate = self
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         self.asd = view
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    //Seccion de Mapa
-    @IBAction func btnMostrarMapa(_ sender: Any) {
+        sacarDetalles()
         mostrarMapa()
     }
+    
+//Seccion de Mapa
+    @IBAction func btnMostrarMapa(_ sender: Any) {}
     var asd:Any = self
     var mapa:Any = self
     func mostrarMapa(){
@@ -59,18 +55,73 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
         self.view = self.asd as! UIView
     }
+//Definir valores de los detalles
+    var detalles = [""]          //Key o nombre clave de cada campo
+    var detallesMostrar = [""]   //(key)Nombre de campo, para mostrar
+    var detalle = ["":""]        //Valor para cada key
     
-    //Seccion de detalles
+    func sacarDetalles(){
+        detalles = ["id","names","lastnames","address","city","state","country","region","cp","notes","tel","movil","schedule","active","company_id","user_id","created_at","updated_at","url"]
+        detallesMostrar = []
+        
+        detalle = [
+            "id":"",
+            "names":"",
+            "lastnames":"",
+            "address":"",
+            "city":"",
+            "state":"",
+            "country":"",
+            "region":"",
+            "cp":"",
+            "notes":"",
+            "tel":"",
+            "movil":"",
+            "schedule":"",
+            "active":"",
+            "company_id":"",
+            "user_id":"",
+            "created_at":"",
+            "updated_at":"",
+            "url":""]
+        
+        //print(objDetViaje!.details)
+        detalle["id"] = "\(objDetViaje!.id)"
+        detalle["names"] = objDetViaje?.names.string
+        detalle["lastnames"] = objDetViaje?.lastnames
+        detalle["address"] = objDetViaje?.address
+        detalle["city"] = objDetViaje?.city
+        detalle["state"] = objDetViaje?.state
+        detalle["country"] = objDetViaje?.country
+        detalle["region"] = objDetViaje?.region
+        detalle["cp"] = objDetViaje?.cp
+        detalle["notes"] = objDetViaje?.notes
+        detalle["tel"] = objDetViaje?.tel
+        detalle["movil"] = objDetViaje?.movil
+        detalle["schedule"] = objDetViaje?.schedule
+        detalle["active"] = objDetViaje?.active
+        detalle["company_id"] = objDetViaje?.company_id
+        detalle["user_id"] = objDetViaje?.user_id
+        detalle["created_at"] = objDetViaje?.created_at
+        detalle["updated_at"] = objDetViaje?.updated_at
+        detalle["url"] = objDetViaje?.url
+    }
+//Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ciudades.count
+        return self.detalles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTClD", for: indexPath) as! Transportista_DetallesDeClienteTableViewCell
-        let arrayCiudades =   ciudades[indexPath.row]
-        celda.lblTClD?.text = arrayCiudades
+        let value = detalle[detalles[indexPath.row]]!
+        let key = detallesMostrar[indexPath.row]
+        celda.lblKey?.text = key
+        celda.lblTClD?.text = value
         return celda
     }
-
+//Otros
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }
