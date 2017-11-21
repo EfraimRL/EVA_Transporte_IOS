@@ -19,7 +19,7 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
         pagina = "customers.json"
         self.tvTClientesViajesLista.delegate = self
         self.tvTClientesViajesLista.dataSource = self
-        Listar()
+        //Listar()
     }
     
     //Listar celda(por celda) de viaje
@@ -44,7 +44,10 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
             destino.objDetClienteViaje = detalleSeleccionado
         }
     }
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.arrayViajes.count
+    }
+
     
     /*Falta Modificar
     //Si hay o no registros como respuesta, muestra u oculta la Tabla (UITableView)
