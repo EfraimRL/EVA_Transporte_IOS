@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import Alamofire
+import SwiftyJSON
 class Transportista_NotificacionesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tvTNtificaciones: UITableView!
@@ -56,9 +57,9 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
                         let code = detDeNotificaciones["code"].string!
                         var protocols = detDeNotificaciones["protocols"].string!
                         var grade = detDeNotificaciones["grade"].string!
-                        var something = detDeNotificaciones[""].string!
+                        var description = detDeNotificaciones["description"].string!
 
-                        let Notificacion = Notification(code:code,protocols:protocols,grade:grade,something:something)
+                        let Notificacion = Notification(code:code,protocols:protocols,grade:grade,description:description)
                         
                         self.arrayNotificaciones.append(Notificacion)
                     }

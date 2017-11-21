@@ -11,10 +11,12 @@ import UIKit
 class Transportista_NotificacionesTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var lblTN: UILabel!
+    @IBOutlet weak var lblTNKey: UILabel!
+    @IBOutlet weak var lblTNDetalle: UILabel!
     var ciudades = ["Detalle","Cliente","Telefono"]
     func configureCell(Notification: Notification){
-        lblTN.text = Notification.protocol
+        lblTNKey.text = Notification.name.rawValue
+        lblTNDetalle.text = Notification.description
     }
     override func awakeFromNib() {
         super.awakeFromNib()
