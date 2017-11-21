@@ -12,6 +12,7 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
     @IBOutlet weak var map: UIView!
 
     @IBOutlet var tvTClienteDetalles: UITableView!
+    var objDetClienteViaje:ViajesCh?
     var ciudades = ["Detalle","Cliente","Telefono"]
     override func viewDidLoad() {
         super.viewDidLoad()
