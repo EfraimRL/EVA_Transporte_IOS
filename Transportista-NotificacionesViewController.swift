@@ -10,35 +10,68 @@ import UIKit
 
 class Transportista_NotificacionesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-   var ciudades = ["Notificacion 1","Notificacion 2","Notificacion 3","Notificacion 4"]
     @IBOutlet weak var tvTNtificaciones: UITableView!
+    var arrayNotificaciones = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvTNtificaciones.dataSource = self
         self.tvTNtificaciones.delegate = self
         //var json = TraerJSON()
+        Listar()
+    }
+//Listar celda de viaje
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let celda = tableView.dequeueReusableCell(withIdentifier: "celTN", for: indexPath) as! Transportista_NotificacionesTableViewCell
+        celda.configureCell(Notification: arrayNotificaciones[indexPath.row] as! Notification)
+        //celda.lblTN?.text = arrayCiudades
+        return celda
+    }
+//Seleccion de celda
+
+//Si hay o no registros como respuesta
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.arrayNotificaciones.count == 0{
+            tvTNtificaciones.isHidden = true
+        }
+        else{
+            tvTNtificaciones.isHidden = false
+        }
+        return self.arrayNotificaciones.count
+    }
+//Traer datos (notificaciones)
+    func Listar(){
+        let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
+        print(dataSend)
+        Alamofire.request("http://localhost:3000/state.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+            if response.result.value != nil {
+                let json = JSON(response.result.value!)
+                print(json)
+                if json == JSON.null {
+                    let result = json["message"]
+                    print("Mensaje traido de server (json)",result)
+                }
+                else{
+                    for (_,detDeNotificaciones):(String,JSON) in json{
+                        
+                        let code = detDeNotificaciones["code"].string!
+                        var protocols = detDeNotificaciones["protocols"].string!
+                        var grade = detDeNotificaciones["grade"].string!
+                        var something = detDeNotificaciones[""].string!
+
+                        let Notificacion = Notification(code:code,protocols:protocols,grade:grade,something:something)
+                        
+                        self.arrayNotificaciones.append(Notificacion)
+                    }
+                    self.tvTNtificaciones.reloadData()
+                }
+            }
+            else{print("No hubo resultados del servidor ")}
+        }
         
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-
-    //Seccion de Mapa
-    
-    //Seccion de detalles
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ciudades.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let celda = tableView.dequeueReusableCell(withIdentifier: "celTN", for: indexPath) as! Transportista_NotificacionesTableViewCell
-        let arrayCiudades =   ciudades[indexPath.row]
-        celda.lblTN?.text = arrayCiudades
-        return celda
     }
 
 }

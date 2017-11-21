@@ -13,6 +13,9 @@ class Transportista_NotificacionesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblTN: UILabel!
     var ciudades = ["Detalle","Cliente","Telefono"]
+    func configureCell(Notification: Notification){
+        lblTN.text = Notification.protocol
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
