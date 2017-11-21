@@ -12,7 +12,7 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
     @IBOutlet weak var map: UIView!
 
     @IBOutlet var tvTClienteDetalles: UITableView!
-    var objDetClienteViaje:ViajesCh?
+    var objDetViaje:ViajesCh?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,10 +84,10 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
             "created_at":"",
             "updated_at":"",
             "url":""]
-        
+        /*
         //print(objDetViaje!.details)
         detalle["id"] = "\(objDetViaje!.id)"
-        detalle["names"] = objDetViaje?.names.string
+        detalle["names"] = objDetViaje?.
         detalle["lastnames"] = objDetViaje?.lastnames
         detalle["address"] = objDetViaje?.address
         detalle["city"] = objDetViaje?.city
@@ -104,7 +104,7 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
         detalle["user_id"] = objDetViaje?.user_id
         detalle["created_at"] = objDetViaje?.created_at
         detalle["updated_at"] = objDetViaje?.updated_at
-        detalle["url"] = objDetViaje?.url
+        detalle["url"] = objDetViaje?.url*/
     }
 //Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

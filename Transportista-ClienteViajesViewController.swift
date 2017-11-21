@@ -41,7 +41,7 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
         //si hay un objeto, se envia a la vista de detalles
         if let detalleSeleccionado = sender as? ViajesCh{
             print("Cliente ID_Viaje Detalle: ", detalleSeleccionado.details)
-            destino.objDetClienteViaje = detalleSeleccionado
+            destino.objDetViaje = detalleSeleccionado
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
