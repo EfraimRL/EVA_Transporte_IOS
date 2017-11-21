@@ -172,3 +172,16 @@ class ClientFull{
         self.url = url
     }
 }
+
+class Notification{
+    var code:String
+    var protocols:String
+    var grade:String
+    var something:String
+    init(code:String,protocols:String,grade:String,something:String) {
+        self.code = code
+        self.protocols = protocols
+        self.grade = grade
+        self.something = something
+    }
+}
