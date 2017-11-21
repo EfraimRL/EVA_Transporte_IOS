@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import Alamofire
+import SwiftyJSON
 class Transportista_ClienteViajesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     var idDeCliente = ""
@@ -19,9 +20,10 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
         pagina = "customers.json"
         self.tvTClientesViajesLista.delegate = self
         self.tvTClientesViajesLista.dataSource = self
-        //Listar()
+        Listar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ClientesViewController.Listar) )
     }
-    
+
     //Listar celda(por celda) de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTCViajes", for: indexPath) as! Transportista_ClientesVajesTableViewCell
@@ -114,6 +116,45 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
     }
     */
 
+    func Listar(){
+        arrayViajes.removeAll()
+        let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
+        print(dataSend)
+        pagina = "travels.json"
+        Alamofire.request("\(localhost)\(pagina)", headers: user_headers).responseJSON{ response in
+            //print(response)
+            if response.result.value != nil {
+                let json = JSON(response.result.value!)
+                print("Viajes: ",json)
+                if json == JSON.null {
+                    let result = json["message"]
+                    alerta(titulo: "Error", mensaje: "No hay registros", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
+                    print("Mensaje traido de server (json)",result)
+                }
+                else{
+                    for (_,propDeViajes):(String,JSON) in json{
+                        
+                        let id = propDeViajes["id"].int!
+                        let idDestine = "Destino"//propDeViajes["idDestine"].string!
+                        let idOrigen = "Origen"//propDeViajes["idOrigen"].string!
+                        let company_id = propDeViajes["company_id"].int!
+                        let driver_id = "1"//propDeViajes["driver_id"].string!
+                        var details = propDeViajes["details"].string!
+                        if details == "" {details = "Detalle no disponible"}
+                        let carrier_line_id = propDeViajes["carrier_line_id"].int!
+                        
+                        let viajeN = ViajesCh(id: id,hoursTraveled: "", hoursPlanned:"",idOrigen: idOrigen,idDestine: idDestine,created_at:"",details: details,company_id: company_id,driver_id:driver_id, load_id:0,state_id:0,truck_id:0,kms:"",gpsReads:"",updated_at:"",mt_id:0,gpsDate:"",carrier_line_id: carrier_line_id,cost:0.0)
+                        
+                        self.arrayViajes.append(viajeN)
+                    }
+                    self.tvTClientesViajesLista.reloadData()
+                }
+            }
+            else{
+                print("No hubo resultados del servidor ")
+            }
+        }
+    }
   
     
     

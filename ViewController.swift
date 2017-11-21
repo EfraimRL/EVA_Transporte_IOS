@@ -291,6 +291,15 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
                     print("Nulo: ",result)
                 }
                 else{
+                    
+                    user_id = json["id"].int!
+                    user_email = json["email"].string!
+                    user_token = json["authentication_token"].string!
+                    
+                    user_headers = [
+                        "X-User-Email":user_email,
+                        "Content-Type":"application/json",
+                        "X-User-Token":user_token]
                     if json["rol"] == "Transportista"{segueV = "segTransportista"}
                     else if json["rol"] == "Cliente"{segueV = "segCliente"}
                     else if json["rol"] == "Conductor"{segueV = "segChofer"}

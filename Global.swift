@@ -9,10 +9,15 @@
 import Foundation
 import UserNotifications
 import UIKit
+import Alamofire
+import SwiftyJSON
 //Variables y funciones globales
 var company_id = 0
 var user_id = 0
+var user_token = ""
+var user_email = ""
 
+var user_headers: HTTPHeaders =  [String:AnyObject]() as! HTTPHeaders
     //Variables de conexion
 
 var localhost = "http://localhost:3000/"

@@ -14,7 +14,6 @@ class Transportista_DetallesDelChoferViewController: UIViewController,UITableVie
     
     @IBOutlet var tvTChoferDetalles: UITableView!
     var objDetConductor:DriverFull?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvTChoferDetalles.dataSource = self
@@ -37,10 +36,11 @@ class Transportista_DetallesDelChoferViewController: UIViewController,UITableVie
         let lat2 = 27.3
         let long2 = -99.3
         let camera = GMSCameraPosition.camera(withLatitude: lat1, longitude: long1, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: 300, height: 300), camera: camera)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: map.frame.size.width, height: map.frame.size.height), camera: camera)
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
-        mapa = mapView
+        //mapa = mapView
+        map.addSubview(mapView)
         
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
@@ -49,7 +49,7 @@ class Transportista_DetallesDelChoferViewController: UIViewController,UITableVie
         marker.map = mapView
         
         //self.view = self.mapa as! UIView
-        self.map.addSubview(self.mapa as! UIView)
+        //self.map.addSubview(self.mapa as! UIView)
     }
     func salirDelMapa() -> Void {
         print("salir del mapa")

@@ -31,6 +31,7 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         self.tvChoferesLista.dataSource = self
         //self.tvChoferesLista.allowsSelection = true
         Listar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
     }
     //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,7 +65,8 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         return self.arrayClientes.count
     }
     func Listar(){
-        Alamofire.request("http://localhost:3000/drivers.json", encoding: JSONEncoding(options: [])).responseJSON{ response in
+        arrayClientes.removeAll()
+        Alamofire.request("\(localhost)/drivers.json", headers: user_headers).responseJSON { response in
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)

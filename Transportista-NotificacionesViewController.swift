@@ -12,6 +12,7 @@ import SwiftyJSON
 class Transportista_NotificacionesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tvTNtificaciones: UITableView!
+    @IBOutlet weak var viewDeTable: UIView!
     var arrayNotificaciones = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,7 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
         self.tvTNtificaciones.delegate = self
         //var json = TraerJSON()
         Listar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_NotificacionesViewController.Listar) )
     }
 //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,17 +35,20 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayNotificaciones.count == 0{
             tvTNtificaciones.isHidden = true
+            viewDeTable.isHidden = true
         }
         else{
             tvTNtificaciones.isHidden = false
+            viewDeTable.isHidden = false
         }
         return self.arrayNotificaciones.count
     }
 //Traer datos (notificaciones)
     func Listar(){
+        arrayNotificaciones.removeAll()
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print(dataSend)
-        Alamofire.request("http://localhost:3000/state.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+        Alamofire.request("http://localhost:3000/states.json", headers: user_headers).responseJSON{ response in
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)
@@ -54,10 +59,10 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
                 else{
                     for (_,detDeNotificaciones):(String,JSON) in json{
                         
-                        let code = detDeNotificaciones["code"].string!
-                        var protocols = detDeNotificaciones["protocols"].string!
+                        let code = detDeNotificaciones["name"].string!
+                        var protocols = detDeNotificaciones["code"].string!
                         var grade = detDeNotificaciones["grade"].string!
-                        var description = detDeNotificaciones["description"].string!
+                        var description = detDeNotificaciones["protocol"].string!
 
                         let Notificacion = Notification(code:code,protocols:protocols,grade:grade,description:description)
                         

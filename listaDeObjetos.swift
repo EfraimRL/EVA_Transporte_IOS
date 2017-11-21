@@ -177,11 +177,11 @@ class Notification{
     var code:String
     var protocols:String
     var grade:String
-    var something:String
-    init(code:String,protocols:String,grade:String,something:String) {
+    var description:String
+    init(code:String,protocols:String,grade:String,description:String) {
         self.code = code
         self.protocols = protocols
         self.grade = grade
-        self.something = something
+        self.description = description
     }
 }

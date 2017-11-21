@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class Transportista_ClientesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet weak var viewDeTableCLientes: UIView!
     @IBOutlet var tvTClientesLista: UITableView!
     var arrayClientes = [AnyObject]()
     override func viewDidLoad() {
@@ -20,16 +21,17 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
         self.tvTClientesLista.delegate = self
         self.tvTClientesLista.dataSource = self
         Listar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ClientesViewController.Listar) )
     }
     
-    //Listar celda(por celda) de cliente
+//Listar celda(por celda) de cliente
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTCl", for: indexPath) as! Transportista_clienteTableViewCell
         celda.configureCell(ClientFull: arrayClientes[indexPath.row] as! ClientFull)
         return celda
     }
     
-    //Al seleccionar celda, enviar a detalles
+//Al seleccionar celda, enviar a detalles
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let send = arrayClientes[indexPath.row]
         print("Selecciono el numero ",indexPath.row," de la lista, detalle de viaje ",arrayClientes[indexPath.row])
@@ -44,23 +46,27 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
         }
     }
     
-    //Si hay o no registros como respuesta, muestra u oculta la Tabla (UITableView)
+//Si hay o no registros como respuesta, muestra u oculta la Tabla (UITableView)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayClientes.count == 0{
             tvTClientesLista.isHidden = true
+            viewDeTableCLientes.isHidden = true
         }
         else{
             tvTClientesLista.isHidden = false
+            viewDeTableCLientes.isHidden = false
         }
         return self.arrayClientes.count
     }
     
-    //Trae los datos y lo guarda en un arrayViajes [tipo ViajesCh]. Con ese array llena la tabla
+//Trae los datos y lo guarda en un arrayViajes [tipo ViajesCh]. Con ese array llena la tabla
     func Listar(){
+        arrayClientes.removeAll()
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
-        print(dataSend)
-        pagina = "drivers.json"
-        Alamofire.request("\(localhost)\(pagina)",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+        print("Clientes: ",dataSend)
+        pagina = "customers.json"
+        print("\(localhost)/\(pagina)")
+        Alamofire.request("\(localhost)/\(pagina)", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

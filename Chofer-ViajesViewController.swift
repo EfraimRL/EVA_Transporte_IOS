@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITableViewDelegate{
 
+    @IBOutlet weak var viewDeTabla: UIView!
     @IBOutlet weak var tvChoferes: UITableView!
     var nombre = ""//Nombre del usuario, chofer que esta en la app actualmente
     var nombreId = ""
@@ -33,7 +34,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         self.tvChoferes.delegate = self
         print(company_id)
         Listar()
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Chofer_ViajesViewController.Listar) )
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,19 +75,28 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayViajes.count == 0{
             tvChoferes.isHidden = true
+            viewDeTabla.isHidden = true
         }
         else{
             tvChoferes.isHidden = false
+            viewDeTabla.isHidden = false
         }
         return self.arrayViajes.count
     }
     
     //Trae datos del WS y lo guarda en un array que muestra en lista
     func Listar(){
+        arrayViajes.removeAll()
         let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)
-        Alamofire.request("http://localhost:3000/travels2.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+        /*
+         pagina = "travelsDriver.json"
+         Alamofire.request("\(localhost)/\(pagina)/\(user_id)"
+         */
+        pagina = "travelsDriver/\(user_id).json"
+        print("\(localhost)/\(pagina)")
+        Alamofire.request("\(localhost)/\(pagina)", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
@@ -116,10 +126,8 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
             else{
                 alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default,sender: self)
                 print("No hubo resultados del servidor ")
-                
             }
         }
-        
     }
     
     

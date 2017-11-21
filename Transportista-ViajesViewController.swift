@@ -21,6 +21,7 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
         self.tvTransportistaViajesLista.dataSource = self
         self.tvTransportistaViajesLista.delegate = self
         Listar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ViajesViewController.Listar) )
     }
     //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,10 +57,11 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
     
     //Trae los datos y lo guarda en un arrayViajes [tipo ViajesCh]. Con ese array llena la tabla
     func Listar(){
+        arrayViajes.removeAll()
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print(dataSend)
-        pagina = "travels2.json"
-        Alamofire.request("\(localhost)\(pagina)",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+        pagina = "travels.json"
+        Alamofire.request("\(localhost)\(pagina)", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

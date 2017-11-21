@@ -16,11 +16,11 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        sacarDetalles()
         self.tvTClienteDetalles.dataSource = self
         self.tvTClienteDetalles.delegate = self
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         self.asd = view
-        sacarDetalles()
         mostrarMapa()
     }
     
@@ -33,7 +33,7 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
         // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
         let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: 300, height: 300), camera: camera)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: map.frame.size.width, height: map.frame.size.height), camera: camera)
         mapView.isMyLocationEnabled = true
         //mapView.center = self.view.center
         //self.view.addSubview(mapView)
@@ -47,7 +47,8 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
         marker.map = mapView
         //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "X",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
         
-        self.view = self.mapa as! UIView
+        //self.view = self.mapa as! UIView
+        map.addSubview(mapView)
         
     }
     func salirDelMapa() -> Void {
@@ -61,54 +62,56 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
     var detalle = ["":""]        //Valor para cada key
     
     func sacarDetalles(){
-        detalles = ["id","names","lastnames","address","city","state","country","region","cp","notes","tel","movil","schedule","active","company_id","user_id","created_at","updated_at","url"]
-        detallesMostrar = []
-        
-        detalle = [
+         detalles = ["id","hoursTraveled","hoursPlanned","idDestine","idrigen","created_at","details","company_id","driver_id","load_id","state_id","truck_id","kms","gpsReads","updated_at","mt_id","gpsDate","carrier_line_id","cost"]
+         detalle = [
             "id":"",
-            "names":"",
-            "lastnames":"",
-            "address":"",
-            "city":"",
-            "state":"",
-            "country":"",
-            "region":"",
-            "cp":"",
-            "notes":"",
-            "tel":"",
-            "movil":"",
-            "schedule":"",
-            "active":"",
-            "company_id":"",
-            "user_id":"",
+            "hoursTraveled":"",
+            "hoursPlanned":"",
+            "idDestine":"",
+            "idrigen":"",
             "created_at":"",
+            "details":"",
+            "company_id":"",
+            "driver_id":"",
+            "load_id":"",
+            "state_id":"",
+            "truck_id":"",
+            "kms":"",
+            "gpsReads":"",
             "updated_at":"",
-            "url":""]
-        /*
+            "mt_id":"",
+            "gpsDate":"",
+            "carrier_line_id":"",
+            "cost":""]
+        detallesMostrar = ["ID","Horas Viajadas","Horas Planeadas","Destino","Origen","Creado","Detalles","Compañia","Conductor","Carga","Estado","Camion","KMs","GPS1","Actualizado","MT","GPS2","Linea","Costo"]
+        
+        
         //print(objDetViaje!.details)
         detalle["id"] = "\(objDetViaje!.id)"
-        detalle["names"] = objDetViaje?.
-        detalle["lastnames"] = objDetViaje?.lastnames
-        detalle["address"] = objDetViaje?.address
-        detalle["city"] = objDetViaje?.city
-        detalle["state"] = objDetViaje?.state
-        detalle["country"] = objDetViaje?.country
-        detalle["region"] = objDetViaje?.region
-        detalle["cp"] = objDetViaje?.cp
-        detalle["notes"] = objDetViaje?.notes
-        detalle["tel"] = objDetViaje?.tel
-        detalle["movil"] = objDetViaje?.movil
-        detalle["schedule"] = objDetViaje?.schedule
-        detalle["active"] = objDetViaje?.active
-        detalle["company_id"] = objDetViaje?.company_id
-        detalle["user_id"] = objDetViaje?.user_id
+        detalle["hoursTraveled"] = objDetViaje?.hoursTraveled
+        detalle["hoursPlanned"] = objDetViaje?.hoursPlanned
+        detalle["idDestine"] = objDetViaje?.idDestine
+        detalle["idrigen"] = objDetViaje?.idOrigen
         detalle["created_at"] = objDetViaje?.created_at
+        detalle["details"] = objDetViaje?.details
+        detalle["company_id"] = "\(objDetViaje!.company_id)"
+        detalle["driver_id"] = "\(objDetViaje!.driver_id)"
+        detalle["state_id"] = "\(objDetViaje!.state_id)"
+        detalle["truck_id"] = "\(objDetViaje!.truck_id)"
+        detalle["kms"] = objDetViaje?.kms
+        detalle["gpsReads"] = objDetViaje?.gpsReads
         detalle["updated_at"] = objDetViaje?.updated_at
-        detalle["url"] = objDetViaje?.url*/
+        detalle["mt_id"]  = "\(objDetViaje!.mt_id)"
+        detalle["gpsDate"] = objDetViaje?.gpsDate
+        detalle["carrier_line_id"] = "\(objDetViaje!.carrier_line_id)"
+        detalle["cost"] = "\(objDetViaje!.cost)"
+        
+        print(detalle["details"])
     }
 //Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.detalles.count
+        print("Cantidad de detalles:",detallesMostrar.count)
+        return self.detallesMostrar.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

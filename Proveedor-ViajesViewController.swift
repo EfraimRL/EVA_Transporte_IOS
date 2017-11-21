@@ -32,7 +32,8 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         */
         self.tvProveedores.dataSource = self
         self.tvProveedores.delegate = self
-        traerDatos()
+        Listar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Proveedor_ViajesViewController.Listar) )
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,7 +75,8 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         //destino.objDetViaje = detalles
     }
     //Traer los datos
-    func traerDatos(){
+    func Listar(){
+        arrayViajes.removeAll()
         let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)
