@@ -26,7 +26,7 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     var likelyPlaces: [GMSPlace] = []
     // The currently selected place.
     var selectedPlace: GMSPlace?
-    
+    var direccion = false
     @IBOutlet weak var lblEstado: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,14 +51,24 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         vistaPantallaTotal = view
         mostrarMapa()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(seg) )
+    }
+    func seg(){
+        direccion = true
+        performSegue(withIdentifier: "salir1", sender: direccion)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino  = segue.destination as! Chofer_NotificacionesViewController
-        destino.choferId = (objDetViaje?.driver_id)!
+        if direccion {
+            
+        }
+        else{
+            let destino  = segue.destination as! Chofer_NotificacionesViewController
+            destino.choferId = (objDetViaje?.driver_id)!
+        }
     }
     
 //Seccion de Mapa

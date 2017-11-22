@@ -19,7 +19,7 @@ class Transportista_DetallesDeViajeViewController: UIViewController,UITableViewD
     var viajeId = ""
     @IBOutlet var tvTViajeDetalles: UITableView!
     var objDetViaje:ViajesCh?
-    
+    var direccion = false
     var ciudades = ["Detalle","Viaje","Desde Transportista"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +29,12 @@ class Transportista_DetallesDeViajeViewController: UIViewController,UITableViewD
         self.asd = view
         sacarDetalles()
         mostrarMapa()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(seg) )
     }
-    
+    func seg(){
+        direccion = true
+        performSegue(withIdentifier: "salir1", sender: direccion)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

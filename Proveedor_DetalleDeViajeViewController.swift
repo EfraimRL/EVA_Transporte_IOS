@@ -15,7 +15,7 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     var clienteId = ""
     var viajeId = ""
     var objDetViaje:ViajesCh?
-    
+    var direccion = false
     @IBOutlet weak var tvProveedorViajeDetalles: UITableView!
     var nombres = ["id","hoursTraveled","hoursPlanned","idDestine","idrigen","created_at","details","company_id","driver_id","load_id","state_id","truck_id","kms","gpsReads","updated_at","mt_id","gpsDate","carrier_line_id","cost"]
     var nombre = [
@@ -48,8 +48,13 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         sacarDetalles()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         self.asd = view
+        mostrarMapa()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(seg) )
     }
-
+    func seg(){
+        direccion = true
+        performSegue(withIdentifier: "salir1", sender: direccion)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -100,7 +105,8 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         marker.map = mapView
         //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "X",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
         
-        self.view = self.mapa as! UIView
+        //self.view = self.mapa as! UIView
+        map.addSubview(mapView)
         
     }
     func salirDelMapa() -> Void {

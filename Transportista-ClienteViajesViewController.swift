@@ -121,7 +121,7 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print(dataSend)
         pagina = "travels.json"
-        Alamofire.request("\(localhost)\(pagina)", headers: user_headers).responseJSON{ response in
+        Alamofire.request("http://localhost:3000/travelsCustomer/\(idDeCliente).json", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

@@ -11,7 +11,7 @@ import GoogleMaps
 class Transportista_DetallesDelChoferViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var map: UIView!
-    
+    var direccion = false
     @IBOutlet var tvTChoferDetalles: UITableView!
     var objDetConductor:DriverFull?
     override func viewDidLoad() {
@@ -22,11 +22,15 @@ class Transportista_DetallesDelChoferViewController: UIViewController,UITableVie
         self.asd = view
         sacarDetalles()
         mostrarMapa()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(seg) )
     }
     
     //Seccion de Mapa
     @IBAction func btnMostrarMapa(_ sender: Any) {}
-    
+    func seg(){
+        direccion = true
+        performSegue(withIdentifier: "salir1", sender: direccion)
+    }
     var asd:Any = self
     var mapa:Any = self
 //Mapa

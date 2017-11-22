@@ -80,7 +80,8 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)
-        Alamofire.request("http://localhost:3000/travels2.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+        print("http://localhost:3000/travelsCustomer/\(user_id).json")
+        Alamofire.request("http://localhost:3000/travelsCustomer/\(user_id).json", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

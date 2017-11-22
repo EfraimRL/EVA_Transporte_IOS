@@ -98,9 +98,17 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         {
             //LoginToDo()
         }
-        
+        navigationItem.hidesBackButton = true
+        if navigationItem.backBarButtonItem?.isEnabled == true{
+            navigationItem.backBarButtonItem?.isEnabled = false
+        }
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        navigationItem.hidesBackButton = true
+        if navigationItem.backBarButtonItem?.isEnabled == true{
+            navigationItem.backBarButtonItem?.isEnabled = false
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -212,6 +220,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
     
     var email:String = ""
     var password:String = ""
+    /*
     func Ingresar(){
         email = txtUser.text!
         password = txtPass.text!
@@ -273,7 +282,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
             task.resume()
         }
     }
-    
+    */
     func otroIntento(){
         validarUsuario()
         email = txtUser.text!

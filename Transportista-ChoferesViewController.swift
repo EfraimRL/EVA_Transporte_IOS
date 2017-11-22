@@ -15,6 +15,8 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
     
     @IBOutlet var tvChoferesLista: UITableView!
     
+    @IBOutlet weak var navBBar: UINavigationItem!
+    
     var choferId = "" //Viaje Seleccionado
     var arrayClientes = [AnyObject]()
     override func viewDidLoad() {
@@ -32,6 +34,7 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         //self.tvChoferesLista.allowsSelection = true
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
+        navBBar.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
     }
     //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

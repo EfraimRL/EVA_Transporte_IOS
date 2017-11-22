@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 class Transportista_DetalleDeClienteViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var map: UIView!
-
+    var direccion = false
     @IBOutlet var tvTClienteDetalles: UITableView!
     var objDetViaje:ViajesCh?
 
@@ -22,8 +22,26 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "",style: .plain, target: nil,action: nil)
         self.asd = view
         mostrarMapa()
+        //let rightAddBarButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Add", style: UIBarButtonItemStyle.plain, target: self, action: #selector(Transportista_DetalleDeClienteViewController.addTapped))
+        // 2
+        //let rightSearchBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(Transportista_DetalleDeClienteViewController.searchTapped))
+        // 3
+        //self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem,rightSearchBarButtonItem], animated: true)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(seg) )
+    }
+    func seg(){
+        direccion = true
+        performSegue(withIdentifier: "salir1", sender: direccion)
     }
     
+    // 4
+    func searchTapped(sender:UIButton) {
+        print("search pressed")
+    }
+    // 5
+    func addTapped (sender:UIButton) {
+        print("add pressed")
+    }
 //Seccion de Mapa
     @IBAction func btnMostrarMapa(_ sender: Any) {}
     var asd:Any = self
