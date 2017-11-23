@@ -14,25 +14,30 @@ import SwiftyJSON
 
 class ViewController: UIViewController,UNUserNotificationCenterDelegate {
 
+    
     func notificaciones(){
         //-*Para notificaciones
+        if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
-        //*-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let content = UNMutableNotificationContent()
-        content.title = "Error"
-        content.subtitle = "Usuario o contraseña incorrectos"
-        content.body = "Trate de nuevo"
-        content.sound = UNNotificationSound.default()
-        let request = UNNotificationRequest(identifier: "ZeldaNotification", content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        UNUserNotificationCenter.current().add(request) {(error) in
-            if let error = error {
-                print("Se ha producido un error: \(error)")
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let content = UNMutableNotificationContent()
+            content.title = "Error"
+            content.subtitle = "Usuario o contraseña incorrectos"
+            content.body = "Trate de nuevo"
+            content.sound = UNNotificationSound.default()
+            let request = UNNotificationRequest(identifier: "ZeldaNotification", content: content, trigger: trigger)
+        
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().add(request) {(error) in
+                if let error = error {
+                    print("Se ha producido un error: \(error)")
+                }
             }
+        } else {
+            // Fallback on earlier versions
         }
-        
+        //*-
     }
     
     /*Variables temporales
@@ -212,6 +217,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         //login_button.setTitle("Login", for: .normal)
     }
     */
+    @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         completionHandler([.alert, .sound])

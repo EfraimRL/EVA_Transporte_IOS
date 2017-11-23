@@ -22,6 +22,7 @@ var user_headers: HTTPHeaders =  [String:AnyObject]() as! HTTPHeaders
 
 var localhost = "http://localhost:3000/"
 var pagina = ""
+@available(iOS 10.0, *)
 func notificaciones(delegate:UNUserNotificationCenterDelegate){
     //-*Para notificaciones
     UNUserNotificationCenter.current().delegate = delegate
