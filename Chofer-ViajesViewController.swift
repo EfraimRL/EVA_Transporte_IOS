@@ -24,7 +24,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         super.viewDidLoad()
         /*let json = TraerJSON()
         let listaViajes = json.objJSON(url1: "http://...",tipo:"Chofer",vista:"lista",id:nombreId) as! Lista
-        print("Lista ",listaViajes)
+        //print("Lista ",listaViajes)
         let nombre = listaViajes.nombre
         print("Chofer ",nombre)
         self.item = listaViajes.item

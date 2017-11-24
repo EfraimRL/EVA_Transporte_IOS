@@ -17,26 +17,20 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
     
     func notificaciones(){
         //-*Para notificaciones
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().delegate = self
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate(timeIntervalSinceNow: 5) as Date
+        notification.alertBody = "Hey you! Yeah you! Swipe to unlock!"
+        notification.alertAction = "be awesome!"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.shared.scheduleLocalNotification(notification)
         
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-            let content = UNMutableNotificationContent()
-            content.title = "Error"
-            content.subtitle = "Usuario o contraseña incorrectos"
-            content.body = "Trate de nuevo"
-            content.sound = UNNotificationSound.default()
-            let request = UNNotificationRequest(identifier: "ZeldaNotification", content: content, trigger: trigger)
+        let notification1 = UILocalNotification()
+        notification1.fireDate = NSDate(timeIntervalSinceNow: 15) as Date
+        notification1.alertBody = "Hey you! Yeah you! Swipe to unlock!"
+        notification1.alertAction = "be awesome!"
+        notification1.soundName = UILocalNotificationDefaultSoundName
         
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            UNUserNotificationCenter.current().add(request) {(error) in
-                if let error = error {
-                    print("Se ha producido un error: \(error)")
-                }
-            }
-        } else {
-            // Fallback on earlier versions
-        }
+        UIApplication.shared.scheduleLocalNotification(notification1)
         //*-
     }
     
@@ -295,15 +289,23 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         password = txtPass.text!
         let dataSend = ["email": txtUser.text!, "password": txtPass.text!] as [String:Any]
         print(dataSend)
-        Alamofire.request("http://localhost:3000/users/sign_in.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+        if email == "" || password == "" {
+            LocalNotification.dispatchlocalNotification(with: "Falta campo(s)", body: "Correo y contraseña no pueden faltar", at: Date().addedBy(seconds: 2))
+            
+            alerta(titulo: "Falta campo(s)", mensaje: "Correo y contraseña no pueden estar vacios", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
+        }
+        else{
+            Alamofire.request("http://localhost:3000/users/sign_in.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
             print(response)
             var segueV:String=""
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)
-                if json == JSON.null {
+                if json["message"] != "" {
                     let result = json["message"]
                     print("Nulo: ",result)
+                    LocalNotification.registerForLocalNotification(on: UIApplication.shared)
+                    LocalNotification.dispatchlocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date().addedBy(seconds: 1))
                 }
                 else{
                     
@@ -328,7 +330,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
                 print("No hay respuesta del Web Service")
             }
         }
-        
+        }
     }
     @IBAction func llenar(_ sender: Any) {
         let opcion = txtUser.text
