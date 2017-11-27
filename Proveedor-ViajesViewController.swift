@@ -13,6 +13,7 @@ import SwiftyJSON
 class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     @IBOutlet weak var tvProveedores: UITableView!
+    var aDonde = false
     var nombre = ""//Nombre del usuario, chofer que esta en la app actualmente
     var nombreId = ""
     var item = [""] //Son los objetos que se enlistaran
@@ -34,8 +35,13 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         self.tvProveedores.delegate = self
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Proveedor_ViajesViewController.Listar) )
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
     }
-    
+    func salir(){
+        aDonde = false
+        performSegue(withIdentifier: "salir", sender: nil)
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celProve", for: indexPath) as! Proveedor_ViajeTableViewCell
@@ -48,6 +54,7 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         let obj = arrayViajes[indexPath.row] as! ViajesCh
         detalles = obj
         ViajeId = "\(obj.id)"
+        aDonde = true
         print("Selecciono el numero ",indexPath.row," Detalle ",obj.details)
         performSegue(withIdentifier: "segClienteViajes-Detalles", sender: obj)
     }
@@ -66,12 +73,14 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino  = segue.destination as! Proveedor_DetalleDeViajeViewController
-        if let detalleSeleccionado = sender as? ViajesCh{
-            destino.objDetViaje = detalleSeleccionado
+        if aDonde{
+            let destino  = segue.destination as!   Proveedor_DetalleDeViajeViewController
+            if let detalleSeleccionado = sender as? ViajesCh{
+                destino.objDetViaje = detalleSeleccionado
+            }
+            destino.clienteId = nombreId
+            destino.viajeId = ViajeId
         }
-        destino.clienteId = nombreId
-        destino.viajeId = ViajeId
         //destino.objDetViaje = detalles
     }
     //Traer los datos

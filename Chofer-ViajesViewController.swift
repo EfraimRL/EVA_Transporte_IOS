@@ -15,6 +15,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
 
     @IBOutlet weak var viewDeTabla: UIView!
     @IBOutlet weak var tvChoferes: UITableView!
+    var aDonde = false
     var nombre = ""//Nombre del usuario, chofer que esta en la app actualmente
     var nombreId = ""
     var item = ["1"] //Son los objetos que se enlistaran
@@ -36,8 +37,12 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         print(company_id)
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Chofer_ViajesViewController.Listar) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
     }
-    
+    func salir(){
+        aDonde = false
+        performSegue(withIdentifier: "salir", sender: nil)
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celV", for: indexPath) as! Chofer_viajeTableViewCell
@@ -60,16 +65,21 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         celda.lblViaje?.text
         */
         let send = arrayViajes[indexPath.row]
+        aDonde = true
         //print("Selecciono el numero ",indexPath.row," Detalle ",item[indexPath.row])
         performSegue(withIdentifier: "segChofer-Detalles", sender: send)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino  = segue.destination as! Chofer_DetalleDeViajeViewController
-        //destino.choferId = nombreId
-        destino.ViajeId = "solar"
-        if let detalleSeleccionado = sender as? ViajesCh{
-            print(detalleSeleccionado.details)
-            destino.objDetViaje = detalleSeleccionado
+        if aDonde{
+            let destino  = segue.destination as! Chofer_DetalleDeViajeViewController
+            //destino.choferId = nombreId
+            destino.ViajeId = "solar"
+            if let detalleSeleccionado = sender as? ViajesCh{
+                print(detalleSeleccionado.details)
+                destino.objDetViaje = detalleSeleccionado
+            }
+        }
+        else{
         }
     }
     

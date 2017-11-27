@@ -83,10 +83,11 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
         let long2 = -99.3
     // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: lat1, longitude: long1, zoom: 8.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 27.405, longitude: -99.46, zoom: 9.0)
          mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width:	viewMap.frame.size.width, height: viewMap.frame.size.height), camera: camera)
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        mapView.settings.compassButton = true
         //mapView.center = self.view.center
         //self.view.addSubview(mapView)
         mapa = mapView
