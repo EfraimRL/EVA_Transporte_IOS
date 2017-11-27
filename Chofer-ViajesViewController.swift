@@ -9,8 +9,9 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import UserNotifications
 
-class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITableViewDelegate{
+class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UNUserNotificationCenterDelegate{
 
     @IBOutlet weak var viewDeTabla: UIView!
     @IBOutlet weak var tvChoferes: UITableView!

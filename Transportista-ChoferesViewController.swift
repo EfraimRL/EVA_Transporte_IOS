@@ -58,12 +58,15 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
     }
     
     //Si hay o no registros como respuesta
+    @IBOutlet weak var imgVacio: UIImageView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayClientes.count == 0{
             tvChoferesLista.isHidden = true
+            imgVacio.isHidden = false
         }
         else{
             tvChoferesLista.isHidden = false
+            imgVacio.isHidden = true
         }
         return self.arrayClientes.count
     }

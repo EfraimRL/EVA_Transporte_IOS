@@ -14,6 +14,7 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
 
     var choferId = ""
     var descripciones = ["Desastre Natural","Falla del Vehiculo","Documentacion","Otro"]
+    var imagenes = [#imageLiteral(resourceName: "DesastreNatural"),#imageLiteral(resourceName: "FallaDelVehiculo"),#imageLiteral(resourceName: "Documentacion"),#imageLiteral(resourceName: "Otro")]
     
     @IBOutlet weak var vista: UIView!
     @IBOutlet weak var tvChoferNotificaciones: UITableView!
@@ -32,21 +33,20 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.descripciones.count
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return vista.frame.size.height/4
+    }
     //Carga las celdasd
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celCDNoti", for: indexPath) as! Chofer_NotificacionesTableViewCell
         celda.frame.size.height = vista.frame.size.height/4
-        //let nombreCategoria = arrayCategoria[indexPath.row]["Nombre"]
         let Detalle = descripciones[indexPath.row]
         celda.lblDescripcion?.text = Detalle
-        //celda.imgIcono.image?.imageAsset.
-        //celda.imgIcono = Imagen
+        celda.imgIcono.image = imagenes[indexPath.row]
         return celda
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let celda = tableView.cellForRow(at: indexPath) as! Chofer_NotificacionesTableViewCell
-        //print("Selecciono el numero ",indexPath.row," Detalle ",celda.lblDescripcion?.text!)
     }
 
 }

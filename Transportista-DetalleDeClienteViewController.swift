@@ -50,9 +50,10 @@ class Transportista_DetalleDeClienteViewController: UIViewController,UITableView
         //Mapa
         // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 8.0)
         let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: map.frame.size.width, height: map.frame.size.height), camera: camera)
         mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
         //mapView.center = self.view.center
         //self.view.addSubview(mapView)
         mapa = mapView

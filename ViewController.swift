@@ -52,16 +52,23 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         //login_now(email:txtUser.text!, password: txtPass.text!)
         //validarUsuario()
         //Ingresar()
-        otroIntento()
+        Listar()
     }
-    
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert, .sound])
+    }
     var login_session:String = ""
     
     func validarUsuario(){
         segue = ""
+        
         if txtUser.text == "" || txtPass.text == ""{
             //Alert: No deje campos vacios
-            notificaciones()
+            //notificaciones()
+            //LocalNotification.dispatchlocalNotification(with: "Falta campo", body: "Debe contener correo y contraseña", at: Date().addedBy(seconds: 1), sender: self)
+            _ = LocalNotification.Notificaciones(with: "Falta campo", body: "Debe contener correo y password", at: Date().addedBy(seconds: 3), sender: self)
         }
         /*
         else{
@@ -211,11 +218,11 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         //login_button.setTitle("Login", for: .normal)
     }
     */
-    @available(iOS 10.0, *)
+    /*@available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         completionHandler([.alert, .sound])
-    }
+    }*/
     
     
     var email:String = ""
@@ -283,14 +290,15 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         }
     }
     */
-    func otroIntento(){
-        validarUsuario()
+    func Listar(){
+        LocalNotification.registerForLocalNotification(on: UIApplication.shared)
         email = txtUser.text!
         password = txtPass.text!
         let dataSend = ["email": txtUser.text!, "password": txtPass.text!] as [String:Any]
         print(dataSend)
         if email == "" || password == "" {
-            LocalNotification.dispatchlocalNotification(with: "Falta campo(s)", body: "Correo y contraseña no pueden faltar", at: Date().addedBy(seconds: 2))
+            LocalNotification.dispatchlocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date().addedBy(seconds: 2))
+            _ = LocalNotification.Notificaciones(with: "Falta campo(s)", body: "Correo y contraseña no pueden faltar", at: Date().addedBy(seconds: 2), sender: self)
             
             alerta(titulo: "Falta campo(s)", mensaje: "Correo y contraseña no pueden estar vacios", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
         }
@@ -301,11 +309,10 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)
-                if json["message"] != "" {
-                    let result = json["message"]
+                if json["message"] != JSON.null {
+                    let result = json["message"].string!
                     print("Nulo: ",result)
-                    LocalNotification.registerForLocalNotification(on: UIApplication.shared)
-                    LocalNotification.dispatchlocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date().addedBy(seconds: 1))
+                    _ = LocalNotification.Notificaciones(with: "Error", body: result, at: Date().addedBy(seconds: 0), sender: self)
                 }
                 else{
                     

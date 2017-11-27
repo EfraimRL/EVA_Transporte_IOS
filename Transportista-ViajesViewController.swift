@@ -45,12 +45,15 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
     }
     
     //Si hay o no registros como respuesta muestra u oculta la Tabla (UITableView)
+    @IBOutlet weak var imgVacio: UIImageView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayViajes.count == 0{
             tvTransportistaViajesLista.isHidden = true
+            imgVacio.isHidden = false
         }
         else{
             tvTransportistaViajesLista.isHidden = false
+            imgVacio.isHidden = true
         }
         return self.arrayViajes.count
     }

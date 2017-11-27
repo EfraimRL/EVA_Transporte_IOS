@@ -47,7 +47,7 @@ class Transportista_DetallesDelChoferViewController: UIViewController,UITableVie
         map.addSubview(mapView)
         
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.position = CLLocationCoordinate2D(latitude: lat1, longitude: long1)
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapView

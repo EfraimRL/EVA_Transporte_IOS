@@ -32,14 +32,17 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
 //Seleccion de celda
 
 //Si hay o no registros como respuesta
+    @IBOutlet weak var imgVacio: UIImageView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayNotificaciones.count == 0{
             tvTNtificaciones.isHidden = true
             viewDeTable.isHidden = true
+            imgVacio.isHidden = false
         }
         else{
             tvTNtificaciones.isHidden = false
             viewDeTable.isHidden = false
+            imgVacio.isHidden = true
         }
         return self.arrayNotificaciones.count
     }

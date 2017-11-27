@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="ipad9_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,35 +19,53 @@
                         <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                    <view key="view" contentMode="scaleToFill" id="f4B-uo-fUI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="Zsz-xY-2vM">
-                                <rect key="frame" x="90" y="771" width="588" height="2"/>
-                                <color key="progressTintColor" red="0.23250132800000001" green="0.4169959426" blue="0.37238556150000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </progressView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="pyU-Rz-ssj">
-                                <rect key="frame" x="90" y="150" width="588" height="511"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de usuario o correo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wyq-Rl-KFI">
+                                <rect key="frame" x="51" y="192" width="218" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ehU-6J-gqo">
+                                <rect key="frame" x="51" y="244" width="218" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="FBq-G2-qFD">
+                                <rect key="frame" x="86" y="30" width="148" height="140"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="pyU-Rz-ssj" secondAttribute="height" multiplier="129:112" id="nUy-pi-BiF"/>
+                                    <constraint firstAttribute="width" secondItem="FBq-G2-qFD" secondAttribute="height" multiplier="18:17" id="eQM-bs-SBC"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cargando..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfC-x3-I2u">
+                                <rect key="frame" x="77" y="369" width="167" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.99607473609999997" green="0.9922029376" blue="0.99199241400000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="pyU-Rz-ssj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="70" id="4QH-BP-rfm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pyU-Rz-ssj" secondAttribute="trailing" constant="70" id="Hg0-tp-XI5"/>
-                            <constraint firstItem="Zsz-xY-2vM" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="70" id="PaT-oC-T3D"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Zsz-xY-2vM" secondAttribute="trailing" constant="70" id="dp0-56-n9O"/>
-                            <constraint firstItem="pyU-Rz-ssj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="130" id="siq-3j-iog"/>
-                            <constraint firstItem="Zsz-xY-2vM" firstAttribute="top" secondItem="pyU-Rz-ssj" secondAttribute="bottom" constant="110" id="xYx-L6-L0J"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FBq-G2-qFD" secondAttribute="trailing" constant="70" id="1H5-AX-CDp"/>
+                            <constraint firstItem="ehU-6J-gqo" firstAttribute="top" secondItem="Wyq-Rl-KFI" secondAttribute="bottom" constant="22" id="Yft-T7-bLs"/>
+                            <constraint firstItem="FBq-G2-qFD" firstAttribute="leading" secondItem="f4B-uo-fUI" secondAttribute="leadingMargin" constant="70" id="aAJ-Un-p0B"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wyq-Rl-KFI" secondAttribute="trailing" constant="35" id="ewc-uI-jI1"/>
+                            <constraint firstItem="Wyq-Rl-KFI" firstAttribute="top" secondItem="FBq-G2-qFD" secondAttribute="bottom" constant="22" id="h3F-dS-AMp"/>
+                            <constraint firstItem="Wyq-Rl-KFI" firstAttribute="leading" secondItem="f4B-uo-fUI" secondAttribute="leadingMargin" constant="35" id="mE7-ut-mIK"/>
+                            <constraint firstItem="FBq-G2-qFD" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="10" id="qMo-f1-a4G"/>
+                            <constraint firstItem="ehU-6J-gqo" firstAttribute="leading" secondItem="f4B-uo-fUI" secondAttribute="leadingMargin" constant="35" id="sXN-Pw-N16"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ehU-6J-gqo" secondAttribute="trailing" constant="35" id="uR5-Jw-lPk"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="50.625" y="373.94366197183098"/>
         </scene>
     </scenes>
     <resources>

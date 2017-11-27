@@ -46,15 +46,18 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
         }
     }
     
+    @IBOutlet weak var imgVacio: UIImageView!
 //Si hay o no registros como respuesta, muestra u oculta la Tabla (UITableView)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayClientes.count == 0{
             tvTClientesLista.isHidden = true
             viewDeTableCLientes.isHidden = true
+            imgVacio.isHidden = false
         }
         else{
             tvTClientesLista.isHidden = false
             viewDeTableCLientes.isHidden = false
+            imgVacio.isHidden = true
         }
         return self.arrayClientes.count
     }

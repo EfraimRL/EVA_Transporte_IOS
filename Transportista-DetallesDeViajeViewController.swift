@@ -53,6 +53,7 @@ class Transportista_DetallesDeViajeViewController: UIViewController,UITableViewD
         let camera = GMSCameraPosition.camera(withLatitude: 27.509180, longitude: -99.561880, zoom: 4.0)
         let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: map.frame.size.width, height: map.frame.size.height), camera: camera)
         mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
         //mapView.center = self.view.center
         //self.view.addSubview(mapView)
         mapa = mapView
