@@ -15,11 +15,13 @@ class Transportista_NotificacionesTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTNDetalle: UILabel!
     var ciudades = ["Detalle","Cliente","Telefono"]
     func configureCell(Notification: Notification){
-        lblTNKEY1.text = Notification.code
-        lblTNDetalle.text = Notification.description
+        lblTNKEY1.text = Notification.name
+        lblTNDetalle.text = Notification.grade
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        lblTNKEY1.layer.cornerRadius = 10
+        lblTNKEY1.layer.masksToBounds = true
         // Initialization code
     }
 

@@ -174,14 +174,14 @@ class ClientFull{
 }
 
 class Notification{
+    var name:String
     var code:String
-    var protocols:String
     var grade:String
-    var description:String
-    init(code:String,protocols:String,grade:String,description:String) {
+    var protocols:String
+    init(code:String,protocols:String,grade:String,name:String) {
         self.code = code
         self.protocols = protocols
         self.grade = grade
-        self.description = description
+        self.name = name
     }
 }

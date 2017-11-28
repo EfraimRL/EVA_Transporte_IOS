@@ -11,16 +11,58 @@ import Alamofire
 import SwiftyJSON
 class Transportista_NotificacionesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var tvTNtificaciones: UITableView!
     @IBOutlet weak var viewDeTable: UIView!
     var arrayNotificaciones = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.isHidden = true
+        scrollView.center.x = -600
+        scrollView.layer.cornerRadius = 10
+        scrollView.layer.masksToBounds = true
+        modalTamaño()
         self.tvTNtificaciones.dataSource = self
         self.tvTNtificaciones.delegate = self
-        //var json = TraerJSON()
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_NotificacionesViewController.Listar) )
+    }
+//Modal
+    @IBOutlet weak var txtNombre: UILabel!
+    @IBOutlet weak var txtCodigo: UILabel!
+    @IBOutlet weak var txtCategoria: UILabel!
+    @IBOutlet weak var txtProtocolo: UILabel!
+    
+    func modalTamaño(){
+        scrollView.frame.size.height = viewDeTable.frame.size.height - 60
+        scrollView.frame.size.width = viewDeTable.frame.size.width - 60
+        
+    }
+    @IBOutlet weak var centerPopupModalX: NSLayoutConstraint!
+    @IBOutlet weak var salirModal: UIButton!
+    @IBAction func salirModalPopup(_ sender: Any) {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.salirModal.alpha = 0
+            self.scrollView.center.x = -600
+        })
+    }
+//Seleccion de celda para mostrar el modal
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        scrollView.isHidden = false
+        let notificacionDet = arrayNotificaciones[indexPath.row] as! Notification
+        txtNombre.text = notificacionDet.name
+        txtCodigo.text = notificacionDet.code
+        txtCategoria.text = notificacionDet.grade
+        txtProtocolo.text = notificacionDet.protocols
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            self.scrollView.center.x = self.viewDeTable.center.x
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.salirModal.alpha = 0.5
+        })
     }
 //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -29,9 +71,8 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
         //celda.lblTN?.text = arrayCiudades
         return celda
     }
-//Seleccion de celda
 
-//Si hay o no registros como respuesta
+//Si hay o no registros como respuesta, muestra la imagen por default
     @IBOutlet weak var imgVacio: UIImageView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayNotificaciones.count == 0{
@@ -62,12 +103,12 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
                 else{
                     for (_,detDeNotificaciones):(String,JSON) in json{
                         
-                        let code = detDeNotificaciones["name"].string!
-                        var protocols = detDeNotificaciones["code"].string!
+                        let name = detDeNotificaciones["name"].string!
+                        var code = detDeNotificaciones["code"].string!
                         var grade = detDeNotificaciones["grade"].string!
-                        var description = detDeNotificaciones["protocol"].string!
+                        var protocols = detDeNotificaciones["protocol"].string!
 
-                        let Notificacion = Notification(code:code,protocols:protocols,grade:grade,description:description)
+                        let Notificacion = Notification(code:code,protocols:protocols,grade:grade,name:name)
                         
                         self.arrayNotificaciones.append(Notificacion)
                     }
