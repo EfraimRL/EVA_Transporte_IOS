@@ -22,6 +22,7 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
         self.tvTClientesViajesLista.dataSource = self
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ClientesViewController.Listar) )
+        navigationItem.title = "Viajes"
     }
 
     //Listar celda(por celda) de viaje
@@ -121,7 +122,7 @@ class Transportista_ClienteViajesViewController: UIViewController,UITableViewDel
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print(dataSend)
         pagina = "travels.json"
-        Alamofire.request("http://localhost:3000/travelsCustomer/\(idDeCliente).json", headers: user_headers).responseJSON{ response in
+        Alamofire.request("\(localhost)/travelsCustomer/\(idDeCliente).json", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

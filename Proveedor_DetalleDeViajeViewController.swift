@@ -17,27 +17,9 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     var objDetViaje:ViajesCh?
     var direccion = false
     @IBOutlet weak var tvProveedorViajeDetalles: UITableView!
-    var nombres = ["id","hoursTraveled","hoursPlanned","idDestine","idrigen","created_at","details","company_id","driver_id","load_id","state_id","truck_id","kms","gpsReads","updated_at","mt_id","gpsDate","carrier_line_id","cost"]
-    var nombre = [
-        "id":"",
-        "hoursTraveled":"",
-        "hoursPlanned":"",
-        "idDestine":"",
-        "idrigen":"",
-        "created_at":"",
-        "details":"",
-        "company_id":"",
-        "driver_id":"",
-        "load_id":"",
-        "state_id":"",
-        "truck_id":"",
-        "kms":"",
-        "gpsReads":"",
-        "updated_at":"",
-        "mt_id":"",
-        "gpsDate":"",
-        "carrier_line_id":"",
-        "cost":""]
+    var nombres = [""]
+    var nombre = ["":""]
+    var detalleDeNombre = [""]
     var detalle = [AnyObject]()
     var ciudades = ["Detalle","Destino","Origen","Telefono"]
     
@@ -59,15 +41,57 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         super.didReceiveMemoryWarning()
     }
     func sacarDetalles(){
+        nombres = ["id","hoursTraveled","hoursPlanned","idDestine","idOrigen","created_at","details","company_id","driver_id","load_id","state_id","truck_id","kms","gpsReads","updated_at","mt_id","gpsDate","carrier_line_id","cost"]
+        nombre = [
+            "id":"",
+            "hoursTraveled":"",
+            "hoursPlanned":"",
+            "idDestine":"",
+            "idOrigen":"",
+            "created_at":"",
+            "details":"",
+            "company_id":"",
+            "driver_id":"",
+            "load_id":"",
+            "state_id":"",
+            "truck_id":"",
+            "kms":"",
+            "gpsReads":"",
+            "updated_at":"",
+            "mt_id":"",
+            "gpsDate":"",
+            "carrier_line_id":"",
+            "cost":""]
+        detalleDeNombre = [
+            "ID",
+            "Horas viajadas",
+            "Horas planeadas",
+            "Destino",
+            "Origen",
+            "Creado",
+            "Detalles",
+            "ID compañia",
+            "ID conductor",
+            "ID carga",
+            "ID de estado",
+            "ID de camiòn",
+            "KMS",
+            "GPS1",
+            "Actualizado",
+            "ID MT",
+            "GPS2(date)",
+            "Linea Transp.",
+            "Costo"]
         nombre["id"] = "\(objDetViaje!.id)"
         nombre["hoursTraveled"] = objDetViaje?.hoursTraveled
         nombre["hoursPlanned"] = objDetViaje?.hoursPlanned
         nombre["idDestine"] = objDetViaje?.idDestine
-        nombre["idrigen"] = objDetViaje?.idOrigen
+        nombre["idOrigen"] = objDetViaje?.idOrigen
         nombre["created_at"] = objDetViaje?.created_at
         nombre["details"] = objDetViaje?.details
         nombre["company_id"] = "\(objDetViaje!.company_id)"
         nombre["driver_id"] = "\(objDetViaje!.driver_id)"
+        nombre["load_id"] = "\(objDetViaje!.load_id)"
         nombre["state_id"] = "\(objDetViaje!.state_id)"
         nombre["truck_id"] = "\(objDetViaje!.truck_id)"
         nombre["kms"] = objDetViaje?.kms
@@ -77,6 +101,9 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         nombre["gpsDate"] = objDetViaje?.gpsDate
         nombre["carrier_line_id"] = "\(objDetViaje!.carrier_line_id)"
         nombre["cost"] = "\(objDetViaje!.cost)"
+        for dato in nombre{
+            
+        }
     }
 //Seccion de Mapa
     @IBAction func btnMostrarMapa(_ sender: Any) {
@@ -125,7 +152,7 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         
         let celda = tableView.dequeueReusableCell(withIdentifier: "celPVD", for: indexPath) as! Proveedor_DetalleDeViajeTableViewCell
         let value = nombre[nombres[indexPath.row]]!
-        let key = nombres[indexPath.row]
+        let key = detalleDeNombre[indexPath.row]
         celda.lblKey?.text = key
         celda.lblPDetalle?.text = value
         print("key:",key," value:",value)

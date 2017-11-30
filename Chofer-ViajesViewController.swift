@@ -98,6 +98,7 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
     //Trae datos del WS y lo guarda en un array que muestra en lista
     func Listar(){
         arrayViajes.removeAll()
+        self.tvChoferes.reloadData()
         let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)

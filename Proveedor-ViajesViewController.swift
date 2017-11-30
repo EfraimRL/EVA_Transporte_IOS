@@ -38,6 +38,7 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
     }
+    //Salir
     func salir(){
         aDonde = false
         performSegue(withIdentifier: "salir", sender: nil)
@@ -86,11 +87,12 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
     //Traer los datos
     func Listar(){
         arrayViajes.removeAll()
+        self.tvProveedores.reloadData()
         let driver_id = 1
         let dataSend = ["company_id": company_id, "driver_id": driver_id] as [String:Any]
         print(dataSend)
-        print("http://localhost:3000/travelsCustomer/\(user_id).json")
-        Alamofire.request("http://localhost:3000/travelsCustomer/\(user_id).json", headers: user_headers).responseJSON{ response in
+        print("\(localhost)/travelsCustomer/\(user_id).json")
+        Alamofire.request("\(localhost)/travelsCustomer/\(user_id).json", headers: user_headers).responseJSON{ response in
             //print(response)
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

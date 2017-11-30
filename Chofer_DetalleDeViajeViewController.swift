@@ -74,8 +74,8 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     }
     
 //Seccion de Mapa
-    let lat1 = 27.509180
-    let long1 = -99.561880
+    var lat1 = 27.509180
+    var long1 = -99.561880
     let lat2 = 27.3
     let long2 = -99.3
     @IBOutlet weak var map: UIView!     //instancia del view donde se muestra el mapa pequeño
@@ -86,14 +86,24 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
         localizacion()
-        let lat = lat1
-        let long = long1
+        var lat = lat1
+        var long = long1
         let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom: 9.0)
          mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width:	viewMap.frame.size.width, height: viewMap.frame.size.height), camera: camera)
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
         mapView.isMyLocationEnabled = true
-        
+        lat  = lat1  + abs((lat1  - Double(mapView.camera.target.latitude ))/2)
+        print("LATITUD:",lat1,"-",mapView.camera.target.latitude)
+        long = long1 + abs((long1 - Double(mapView.camera.target.longitude))/2)
+        print("LONGITUD:",long1,"-",mapView.camera.target.longitude)
+        print("CAMERA:",lat,",",long)
+        let cameraPosition = GMSCameraPosition.camera(withLatitude: lat,
+                                             longitude: long,
+                                             zoom: 9)
+        mapView.camera = cameraPosition
+        //mapView.moveCamera(GMSCameraUpdate.setTarget(<#T##target: CLLocationCoordinate2D##CLLocationCoordinate2D#>))
+        //mapView.camera. = mapView.camera.target.latitude
         //mapView.center = self.view.center
         mapa = mapView
         //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "X",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
@@ -193,7 +203,6 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
     func localizacion(){
         Alamofire.request("\(localhost)/locations.json", headers: user_headers).responseJSON{ response in
             print(response)
-            var segueV:String=""
                if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)
@@ -206,13 +215,20 @@ class Chofer_DetalleDeViajeViewController: UIViewController,UITableViewDataSourc
                     for (_,detDeNotificaciones):(String,JSON) in json{
                         
                         
-                        print(detDeNotificaciones["address"].string!)
-                        print(detDeNotificaciones["name"].string!)
-                        self.mostrarMarker(lat1: self.lat2, long1: self.long1, title: "", snippet:  "")
+                        let title = detDeNotificaciones["address"].string!
+                        let snippet = detDeNotificaciones["name"].string!
+                        let coordenadas = detDeNotificaciones["coordinates"].string!
+                        print(coordenadas)
+                        let arrCoordinates : [String] = coordenadas.components(separatedBy: ",")
+                        
+                        self.lat1 = Double(arrCoordinates[0].trimmingCharacters(in: .whitespaces))!
+                        self.long1 = arrCoordinates.count > 1 ? Double(arrCoordinates[1].trimmingCharacters(in: .whitespaces))! : 0
+                      
+                        self.mostrarMarker(lat1: self.lat1, long1: self.long1, title: title, snippet:  snippet)
                     }
                     //Agrega localizacion
                     
-                }
+                }   
             }
             else{
                 alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default, sender: self)

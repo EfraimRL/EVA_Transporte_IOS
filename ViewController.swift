@@ -12,7 +12,7 @@ import GoogleMaps
 import Alamofire
 import SwiftyJSON
 
-class ViewController: UIViewController,UNUserNotificationCenterDelegate {
+class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableViewDelegate,UITableViewDataSource {
 
     
     func notificaciones(){
@@ -46,6 +46,9 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
     //Variables para la conexion y login
     let login_url = "http://localhost:3000/users/sign_in"
     
+    @IBOutlet weak var btnsalirModal: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var tvImagenes: UITableView!
     @IBOutlet var txtUser: UITextField!
     @IBOutlet var txtPass: UITextField!
     @IBAction func btnIngresar(_ sender: Any) {
@@ -53,6 +56,8 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         //validarUsuario()
         //Ingresar()
         Listar()
+        self.tvImagenes.delegate = self
+        self.tvImagenes.dataSource = self
     }
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -61,36 +66,33 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
     }
     var login_session:String = ""
     
+    @IBAction func abrirModal(_ sender: Any) {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            self.tvImagenes.center.x = self.scrollView.center.x
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.btnsalirModal.alpha = 0.5
+        })
+    }
+    @IBAction func salirModal(_ sender: Any) {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.tvImagenes.center.x = -600
+            self.btnsalirModal.alpha = 0
+        })
+    }
     func validarUsuario(){
-        segue = ""
+        var segueV = ""
         
         if txtUser.text == "" || txtPass.text == ""{
-            //Alert: No deje campos vacios
-            //notificaciones()
-            //LocalNotification.dispatchlocalNotification(with: "Falta campo", body: "Debe contener correo y contraseña", at: Date().addedBy(seconds: 1), sender: self)
+            
             _ = LocalNotification.Notificaciones(with: "Falta campo", body: "Debe contener correo y password", at: Date().addedBy(seconds: 3), sender: self)
         }
-        /*
-        else{
-            if txtUser.text == Us1 {
-                if txtPass.text == Ps1 {
-                    segue = "segChofer"
-                    performSegue(withIdentifier: segue, sender: nil)                }else{notificaciones()}
-            }
-            else if txtUser.text == Us3 {
-                if txtPass.text == Ps3 {
-                    segue = "segTransportista"
-                    performSegue(withIdentifier: segue, sender: nil)                }else{notificaciones()}
-            }
-            else if txtUser.text == Us2{
-                if txtPass.text == Ps2 {
-                    segue = "segCliente"
-                    performSegue(withIdentifier: segue, sender: nil)                }else{notificaciones()}
-            }
-            else{notificaciones()}
-        }
-        */
-        
+        if txtUser.text == "efraruiz94@hotmail.com"{segueV = "segTransportista"}
+        else if txtUser.text == "cliente@hotmail.com"{segueV = "segCliente"}
+        else if txtUser.text == "conductor@hotmail.com"{segueV = "segChofer"}
+        self.performSegue(withIdentifier: segueV, sender: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -297,13 +299,13 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
         let dataSend = ["email": txtUser.text!, "password": txtPass.text!] as [String:Any]
         print(dataSend)
         if email == "" || password == "" {
-            LocalNotification.dispatchlocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date().addedBy(seconds: 2))
-            _ = LocalNotification.Notificaciones(with: "Falta campo(s)", body: "Correo y contraseña no pueden faltar", at: Date().addedBy(seconds: 2), sender: self)
+            //LocalNotification.dispatchlocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date().addedBy(seconds: 2))
+            _ = LocalNotification.Notificaciones(with: "Falta campo(s)", body: "Correo y contraseña no pueden faltar", at: Date().addedBy(seconds: 0), sender: self)
             
             alerta(titulo: "Falta campo(s)", mensaje: "Correo y contraseña no pueden estar vacios", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
         }
         else{
-            Alamofire.request("http://localhost:3000/users/sign_in.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+            Alamofire.request("\(localhost)users/sign_in.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
             print(response)
             var segueV:String=""
             if response.result.value != nil {
@@ -349,6 +351,14 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate {
             txtUser.text = "conductor@hotmail.com"
         }
         txtPass.text = "123456"
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrDerechos.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let celda = tableView.dequeueReusableCell(withIdentifier: "celV", for: indexPath)
+        celda.textLabel?.text = arrDerechos[indexPath.row]
+        return celda
     }
     
 }

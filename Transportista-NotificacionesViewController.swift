@@ -27,6 +27,11 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
         self.tvTNtificaciones.delegate = self
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_NotificacionesViewController.Listar) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
+    }
+//Salir
+    func salir(){
+        performSegue(withIdentifier: "segSalir", sender: nil)
     }
 //Modal
     @IBOutlet weak var txtNombre: UILabel!
@@ -90,9 +95,10 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
 //Traer datos (notificaciones)
     func Listar(){
         arrayNotificaciones.removeAll()
+        self.tvTNtificaciones.reloadData()
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print(dataSend)
-        Alamofire.request("http://localhost:3000/states.json", headers: user_headers).responseJSON{ response in
+        Alamofire.request("\(localhost)/states.json", headers: user_headers).responseJSON{ response in
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)

@@ -15,8 +15,9 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
     
     @IBOutlet var tvChoferesLista: UITableView!
     
+    @IBOutlet weak var viewDeTable: UIView!
     @IBOutlet weak var navBBar: UINavigationItem!
-    
+    var aDonde = false
     var choferId = "" //Viaje Seleccionado
     var arrayClientes = [AnyObject]()
     override func viewDidLoad() {
@@ -34,7 +35,13 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         //self.tvChoferesLista.allowsSelection = true
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
-        navBBar.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
+        navBBar.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
+        //UITabBar.appearance().barStyle = .black
+    }
+    //Salir
+    func salir(){
+        aDonde = false
+        performSegue(withIdentifier: "segSalir", sender: nil)
     }
     //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -44,16 +51,19 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
     }
     //Seleccionar celda y enviar a detalles
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aDonde = true
         let send = arrayClientes[indexPath.row]
         print("Selecciono el numero ",indexPath.row," Nombre ",arrayClientes[indexPath.row])
         performSegue(withIdentifier: "segTChofer-Detalles", sender: send)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino  = segue.destination as! Transportista_DetallesDelChoferViewController
+        if aDonde {
+            let destino  = segue.destination as! Transportista_DetallesDelChoferViewController
         //si hay un objeto, se envia a la vista de detalles
-        if let detalleSeleccionado = sender as? DriverFull{
-            print("Nombre de conductor: ",detalleSeleccionado.names)
-            destino.objDetConductor = detalleSeleccionado
+            if let detalleSeleccionado = sender as? DriverFull{
+                print("Nombre de conductor: ",detalleSeleccionado.names)
+                destino.objDetConductor = detalleSeleccionado
+            }
         }
     }
     
@@ -62,16 +72,19 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayClientes.count == 0{
             tvChoferesLista.isHidden = true
+            viewDeTable.isHidden = true
             imgVacio.isHidden = false
         }
         else{
             tvChoferesLista.isHidden = false
+            viewDeTable.isHidden = false
             imgVacio.isHidden = true
         }
         return self.arrayClientes.count
     }
     func Listar(){
         arrayClientes.removeAll()
+        self.tvChoferesLista.reloadData()
         Alamofire.request("\(localhost)/drivers.json", headers: user_headers).responseJSON { response in
             if response.result.value != nil {
                 let json = JSON(response.result.value!)

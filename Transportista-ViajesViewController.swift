@@ -14,7 +14,8 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
     
     
     @IBOutlet var tvTransportistaViajesLista: UITableView!
-    
+    @IBOutlet weak var viewDeTable: UIView!
+    var aDonde = false
     var arrayViajes = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,12 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
         self.tvTransportistaViajesLista.delegate = self
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ViajesViewController.Listar) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
+    }
+    //Salir
+    func salir(){
+        aDonde = false
+        performSegue(withIdentifier: "segSalir", sender: nil)
     }
     //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -31,28 +38,34 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
     }
     //Seleccionar celda y enviar a detalles
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aDonde = true
         let send = arrayViajes[indexPath.row]
         print("Selecciono el numero ",indexPath.row," de la lista, detalle de viaje ",arrayViajes[indexPath.row])
         performSegue(withIdentifier: "segTViaje-Detalles", sender: send)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino  = segue.destination as! Transportista_DetallesDeViajeViewController
+        if  aDonde {
+            let destino  = segue.destination as! Transportista_DetallesDeViajeViewController
         //si hay un objeto, se envia a la vista de detalles
-        if let detalleSeleccionado = sender as? ViajesCh{
-            print("Detalle: ", detalleSeleccionado.details)
-            destino.objDetViaje = detalleSeleccionado
+            if let detalleSeleccionado = sender as? ViajesCh{
+                print("Detalle: ", detalleSeleccionado.details)
+                destino.objDetViaje = detalleSeleccionado
+            }
         }
     }
+        
     
     //Si hay o no registros como respuesta muestra u oculta la Tabla (UITableView)
     @IBOutlet weak var imgVacio: UIImageView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrayViajes.count == 0{
             tvTransportistaViajesLista.isHidden = true
+            viewDeTable.isHidden = true
             imgVacio.isHidden = false
         }
         else{
             tvTransportistaViajesLista.isHidden = false
+            viewDeTable.isHidden = false
             imgVacio.isHidden = true
         }
         return self.arrayViajes.count
@@ -61,6 +74,7 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
     //Trae los datos y lo guarda en un arrayViajes [tipo ViajesCh]. Con ese array llena la tabla
     func Listar(){
         arrayViajes.removeAll()
+        self.tvTransportistaViajesLista.reloadData()
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print(dataSend)
         pagina = "travels.json"

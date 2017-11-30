@@ -14,6 +14,7 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
 
     @IBOutlet weak var viewDeTableCLientes: UIView!
     @IBOutlet var tvTClientesLista: UITableView!
+    var aDonde = false
     var arrayClientes = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +23,14 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
         self.tvTClientesLista.dataSource = self
         Listar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ClientesViewController.Listar) )
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
     }
-    
+    //Salir
+    func salir(){
+        aDonde = false
+        performSegue(withIdentifier: "segSalir", sender: nil)
+    }
 //Listar celda(por celda) de cliente
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celTCl", for: indexPath) as! Transportista_clienteTableViewCell
@@ -33,16 +40,19 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
     
 //Al seleccionar celda, enviar a detalles
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aDonde = true
         let send = arrayClientes[indexPath.row]
         print("Selecciono el numero ",indexPath.row," de la lista, detalle de viaje ",arrayClientes[indexPath.row])
         performSegue(withIdentifier: "segTCliente-TCViajes", sender: send)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destino  = segue.destination as! Transportista_ClienteViajesViewController
-        //si hay un objeto, se envia a la vista de detalles
-        if let detalleSeleccionado = sender as? ClientFull{
-            print("Cliente ID: ", detalleSeleccionado.id)
-            destino.idDeCliente = detalleSeleccionado.id
+        if  aDonde{
+            let destino  = segue.destination as! Transportista_ClienteViajesViewController
+            //si hay un objeto, se envia a la vista de detalles
+            if let detalleSeleccionado = sender as? ClientFull{
+                print("Cliente ID: ", detalleSeleccionado.id)
+                destino.idDeCliente = detalleSeleccionado.id
+            }
         }
     }
     
@@ -65,6 +75,7 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
 //Trae los datos y lo guarda en un arrayViajes [tipo ViajesCh]. Con ese array llena la tabla
     func Listar(){
         arrayClientes.removeAll()
+        self.tvTClientesLista.reloadData()
         let dataSend = ["company_id": company_id, "driver_id": user_id] as [String:Any]
         print("Clientes: ",dataSend)
         pagina = "customers.json"
