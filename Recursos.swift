@@ -8,7 +8,7 @@
 
 import Foundation
 
-let arrDerechos = [
+let arrEnlaces = [
     "https://www.flaticon.com/authors/google",
     "http://www.freepik.com",
     "https://www.flaticon.com/authors/smashicons",
@@ -17,7 +17,7 @@ let arrDerechos = [
     "https://www.flaticon.com/authors/those-icons",
     "https://www.flaticon.com/authors/alfredo-hernandez"
     ]
-let arrDerechosN = [
+let arrCreadores = [
     "Google",
     "Freepk",
     "Smashicons",

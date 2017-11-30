@@ -34,9 +34,9 @@ class Proveedor_ViajesViewController: UIViewController,UITableViewDataSource,UIT
         self.tvProveedores.dataSource = self
         self.tvProveedores.delegate = self
         Listar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Proveedor_ViajesViewController.Listar) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Proveedor_ViajesViewController.Listar) )
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
     }
     //Salir
     func salir(){

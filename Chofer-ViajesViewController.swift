@@ -36,8 +36,8 @@ class Chofer_ViajesViewController: UIViewController,UITableViewDataSource,UITabl
         self.tvChoferes.delegate = self
         print(company_id)
         Listar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Chofer_ViajesViewController.Listar) )
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Chofer_ViajesViewController.Listar) )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
     }
     func salir(){
         aDonde = false

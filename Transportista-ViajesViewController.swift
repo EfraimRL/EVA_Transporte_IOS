@@ -22,8 +22,8 @@ class Transportista_ViajesViewController: UIViewController,UITableViewDataSource
         self.tvTransportistaViajesLista.dataSource = self
         self.tvTransportistaViajesLista.delegate = self
         Listar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ViajesViewController.Listar) )
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ViajesViewController.Listar) )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
     }
     //Salir
     func salir(){

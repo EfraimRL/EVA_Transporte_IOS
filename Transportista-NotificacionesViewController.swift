@@ -26,9 +26,10 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
         self.tvTNtificaciones.dataSource = self
         self.tvTNtificaciones.delegate = self
         Listar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_NotificacionesViewController.Listar) )
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_NotificacionesViewController.Listar) )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
     }
+    
 //Salir
     func salir(){
         performSegue(withIdentifier: "segSalir", sender: nil)
@@ -60,14 +61,15 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
         txtCodigo.text = notificacionDet.code
         txtCategoria.text = notificacionDet.grade
         txtProtocolo.text = notificacionDet.protocols
-        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-            self.scrollView.center.x = self.viewDeTable.center.x
-        }, completion: nil)
-        
         UIView.animate(withDuration: 0.1, animations: {
             self.salirModal.alpha = 0.5
         })
+        if self.salirModal.alpha == 0.5 {
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+                self.scrollView.center.x = self.viewDeTable.center.x
+            }, completion: nil)
+        }
     }
 //Listar celda de viaje
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -123,7 +125,7 @@ class Transportista_NotificacionesViewController: UIViewController,UITableViewDe
             }
             else{print("No hubo resultados del servidor ")}
         }
-        
+        self.scrollView.center.x = -600
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

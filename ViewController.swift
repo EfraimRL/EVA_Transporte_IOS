@@ -13,7 +13,173 @@ import Alamofire
 import SwiftyJSON
 
 class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableViewDelegate,UITableViewDataSource {
+    /*Variables temporales
+    let Us1 = "Chofer"
+    let Us2 = "Cliente"
+    let Us3 = "Transp"
+    let Ps1 = "123"
+    let Ps2 = "456"
+    let Ps3 = "789"
+    */
+//Borrar
+    //Variables para la conexion y login
+    /*let login_url = "http://localhost:3000/users/sign_in"
+    
+    
+     //Login----------------------------------------------------------------------
+     
+     let checksession_url = "http://www.kaleidosblog.com/tutorial/login/api/CheckSession"
+     func login_now(email:String, password:String)
+     {
+     let post_data: NSDictionary = NSMutableDictionary()
+     
+     
+     post_data.setValue(email, forKey: "email")
+     post_data.setValue(password, forKey: "password")
+     
+     let url:URL = URL(string: login_url)!
+     let session = URLSession.shared
+     
+     let request = NSMutableURLRequest(url: url)
+     request.httpMethod = "POST"
+     request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+     
+     var paramString = ""
+     
+     
+     for (key, value) in post_data
+     {
+     paramString = paramString + (key as! String) + "=" + (value as! String) + "&"
+     }
+     
+     request.httpBody = paramString.data(using: String.Encoding.utf8)
+     
+     let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+     guard let _:Data = data, let _:URLResponse = response  , error == nil else {
+     
+     return
+     }
+     
+     let json: Any?
+     
+     do
+     {
+     json = try JSONSerialization.jsonObject(with: data!, options: [])
+     }
+     catch
+     {
+     return
+     }
+     
+     guard let server_response = json as? NSDictionary else
+     {
+     return
+     }
+     
+     
+     //if let data_block = server_response["data"] as? NSDictionary
+     //{
+     //= data_block
+     print(server_response["email"]!)
+     if let session_data = server_response["email"] as? String
+     {
+     self.login_session = session_data
+     
+     let preferences = UserDefaults.standard
+     preferences.set(session_data, forKey: "session")
+     
+     DispatchQueue.main.async(execute: self.LoginDone)
+     }
+     //}
+     }
+     task.resume()
+     }
+     func LoginDone()
+     {
+     txtUser.isEnabled = false
+     txtPass.isEnabled = false
+     let alertController = UIAlertController(title: NSLocalizedString("No network connection",comment:""), message: NSLocalizedString("connected to the internet to use this app.",comment:""), preferredStyle: .alert)
+     let defaultAction = UIAlertAction(title:     NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
+     //Do whatever you wants here
+     })
+     alertController.addAction(defaultAction)
+     self.present(alertController, animated: true, completion: nil)
+     //login_button.isEnabled = true
+     
+     
+     //login_button.setTitle("Logout", for: .normal)
+     }
+     
+     func LoginToDo()
+     {
+     txtUser.isEnabled = true
+     txtPass.isEnabled = true
+     
+     //login_button.isEnabled = true
+     
+     
+     //login_button.setTitle("Login", for: .normal)
+     }
+     */
+    /*@available(iOS 10.0, *)
+     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+     
+     completionHandler([.alert, .sound])
+     }*/
+//Variables
+    @IBOutlet weak var btnsalirModal: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var tvImagenes: UITableView!
+    @IBOutlet var txtUser: UITextField!
+    @IBOutlet var txtPass: UITextField!
+//Boton
+    @IBAction func btnIngresar(_ sender: Any) {
+        //login_now(email:txtUser.text!, password: txtPass.text!)
+        //validarUsuario()
+        //Ingresar()
+        Listar()
+    }
 
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        let preferences = UserDefaults.standard
+        if preferences.object(forKey: "session") != nil
+        {
+            login_session = preferences.object(forKey: "session") as! String
+            //check_session()
+        }
+        else
+        {
+            //LoginToDo()
+        }
+        
+        self.tvImagenes.delegate = self
+        self.tvImagenes.dataSource = self
+        navigationItem.hidesBackButton = true
+        if navigationItem.backBarButtonItem?.isEnabled == true{
+            navigationItem.backBarButtonItem?.isEnabled = false
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        navigationItem.hidesBackButton = true
+        if navigationItem.backBarButtonItem?.isEnabled == true{
+            navigationItem.backBarButtonItem?.isEnabled = false
+        }
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+//Notificaciones temporal (Prueba)
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert, .sound])
+    }
     
     func notificaciones(){
         //-*Para notificaciones
@@ -34,199 +200,9 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableV
         //*-
     }
     
-    /*Variables temporales
-    let Us1 = "Chofer"
-    let Us2 = "Cliente"
-    let Us3 = "Transp"
-    let Ps1 = "123"
-    let Ps2 = "456"
-    let Ps3 = "789"
-    */
-    var segue = "segChofer"
-    //Variables para la conexion y login
-    let login_url = "http://localhost:3000/users/sign_in"
+    var login_session:String = "" //No se que es...?
     
-    @IBOutlet weak var btnsalirModal: UIButton!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var tvImagenes: UITableView!
-    @IBOutlet var txtUser: UITextField!
-    @IBOutlet var txtPass: UITextField!
-    @IBAction func btnIngresar(_ sender: Any) {
-        //login_now(email:txtUser.text!, password: txtPass.text!)
-        //validarUsuario()
-        //Ingresar()
-        Listar()
-        self.tvImagenes.delegate = self
-        self.tvImagenes.dataSource = self
-    }
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        completionHandler([.alert, .sound])
-    }
-    var login_session:String = ""
-    
-    @IBAction func abrirModal(_ sender: Any) {
-        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-            self.tvImagenes.center.x = self.scrollView.center.x
-        }, completion: nil)
-        
-        UIView.animate(withDuration: 0.1, animations: {
-            self.btnsalirModal.alpha = 0.5
-        })
-    }
-    @IBAction func salirModal(_ sender: Any) {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.tvImagenes.center.x = -600
-            self.btnsalirModal.alpha = 0
-        })
-    }
-    func validarUsuario(){
-        var segueV = ""
-        
-        if txtUser.text == "" || txtPass.text == ""{
-            
-            _ = LocalNotification.Notificaciones(with: "Falta campo", body: "Debe contener correo y password", at: Date().addedBy(seconds: 3), sender: self)
-        }
-        if txtUser.text == "efraruiz94@hotmail.com"{segueV = "segTransportista"}
-        else if txtUser.text == "cliente@hotmail.com"{segueV = "segCliente"}
-        else if txtUser.text == "conductor@hotmail.com"{segueV = "segChofer"}
-        self.performSegue(withIdentifier: segueV, sender: nil)
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let preferences = UserDefaults.standard
-        if preferences.object(forKey: "session") != nil
-        {
-            login_session = preferences.object(forKey: "session") as! String
-            //check_session()
-        }
-        else
-        {
-            //LoginToDo()
-        }
-        navigationItem.hidesBackButton = true
-        if navigationItem.backBarButtonItem?.isEnabled == true{
-            navigationItem.backBarButtonItem?.isEnabled = false
-        }
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        navigationItem.hidesBackButton = true
-        if navigationItem.backBarButtonItem?.isEnabled == true{
-            navigationItem.backBarButtonItem?.isEnabled = false
-        }
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    /*
-    //Login----------------------------------------------------------------------
-     
-     let checksession_url = "http://www.kaleidosblog.com/tutorial/login/api/CheckSession"
-    func login_now(email:String, password:String)
-    {
-        let post_data: NSDictionary = NSMutableDictionary()
-        
-        
-        post_data.setValue(email, forKey: "email")
-        post_data.setValue(password, forKey: "password")
-        
-        let url:URL = URL(string: login_url)!
-        let session = URLSession.shared
-        
-        let request = NSMutableURLRequest(url: url)
-        request.httpMethod = "POST"
-        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
-        
-        var paramString = ""
-        
-        
-        for (key, value) in post_data
-        {
-            paramString = paramString + (key as! String) + "=" + (value as! String) + "&"
-        }
-        
-        request.httpBody = paramString.data(using: String.Encoding.utf8)
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let _:Data = data, let _:URLResponse = response  , error == nil else {
-                
-                return
-            }
-            
-            let json: Any?
-            
-            do
-            {
-                json = try JSONSerialization.jsonObject(with: data!, options: [])
-            }
-            catch
-            {
-                return
-            }
-            
-            guard let server_response = json as? NSDictionary else
-            {
-                return
-            }
-            
-            
-            //if let data_block = server_response["data"] as? NSDictionary
-            //{
-            //= data_block
-            print(server_response["email"]!)
-                if let session_data = server_response["email"] as? String
-                {
-                    self.login_session = session_data
-                    
-                    let preferences = UserDefaults.standard
-                    preferences.set(session_data, forKey: "session")
-                    
-                    DispatchQueue.main.async(execute: self.LoginDone)
-                }
-            //}
-        }
-        task.resume()
-    }
-    func LoginDone()
-    {
-        txtUser.isEnabled = false
-        txtPass.isEnabled = false
-        let alertController = UIAlertController(title: NSLocalizedString("No network connection",comment:""), message: NSLocalizedString("connected to the internet to use this app.",comment:""), preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title:     NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
-            //Do whatever you wants here
-        })
-        alertController.addAction(defaultAction)
-        self.present(alertController, animated: true, completion: nil)
-        //login_button.isEnabled = true
-        
-        
-        //login_button.setTitle("Logout", for: .normal)
-    }
-    
-    func LoginToDo()
-    {
-        txtUser.isEnabled = true
-        txtPass.isEnabled = true
-        
-        //login_button.isEnabled = true
-        
-        
-        //login_button.setTitle("Login", for: .normal)
-    }
-    */
-    /*@available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        completionHandler([.alert, .sound])
-    }*/
-    
-    
+//Logg In de usuarios
     var email:String = ""
     var password:String = ""
     /*
@@ -302,7 +278,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableV
             //LocalNotification.dispatchlocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date().addedBy(seconds: 2))
             _ = LocalNotification.Notificaciones(with: "Falta campo(s)", body: "Correo y contraseña no pueden faltar", at: Date().addedBy(seconds: 0), sender: self)
             
-            alerta(titulo: "Falta campo(s)", mensaje: "Correo y contraseña no pueden estar vacios", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
+            alerta(titulo: "Falta campo(s)", mensaje: "Correo y/o contraseña no pueden estar vacios", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
         }
         else{
             Alamofire.request("\(localhost)users/sign_in.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
@@ -314,7 +290,8 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableV
                 if json["message"] != JSON.null {
                     let result = json["message"].string!
                     print("Nulo: ",result)
-                    _ = LocalNotification.Notificaciones(with: "Error", body: result, at: Date().addedBy(seconds: 0), sender: self)
+                    _ = LocalNotification.Notificaciones(with: "No se pudo ingresar:", body: result, at: Date().addedBy(seconds: 0), sender: self)
+                    alerta(titulo: "No se pudo ingresar:", mensaje: result, cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
                 }
                 else{
                     
@@ -326,6 +303,7 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableV
                         "X-User-Email":user_email,
                         "Content-Type":"application/json",
                         "X-User-Token":user_token]
+                    
                     if json["rol"] == "Transportista"{segueV = "segTransportista"}
                     else if json["rol"] == "Cliente"{segueV = "segCliente"}
                     else if json["rol"] == "Conductor"{segueV = "segChofer"}
@@ -341,6 +319,22 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableV
         }
         }
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    }
+//Prueba con usuarios estaticos--------Borrar
+    func validarUsuario(){
+        var segueV = ""
+        
+        if txtUser.text == "" || txtPass.text == ""{
+            
+            _ = LocalNotification.Notificaciones(with: "Falta campo", body: "Debe contener correo y password", at: Date().addedBy(seconds: 3), sender: self)
+        }
+        if txtUser.text == "efraruiz94@hotmail.com"{segueV = "segTransportista"}
+        else if txtUser.text == "cliente@hotmail.com"{segueV = "segCliente"}
+        else if txtUser.text == "conductor@hotmail.com"{segueV = "segChofer"}
+        self.performSegue(withIdentifier: segueV, sender: nil)
+    }
+//Temporal---Borrar
     @IBAction func llenar(_ sender: Any) {
         let opcion = txtUser.text
         switch opcion {
@@ -352,14 +346,39 @@ class ViewController: UIViewController,UNUserNotificationCenterDelegate,UITableV
         }
         txtPass.text = "123456"
     }
+//Modal de derechos de imagenes
+    
+    @IBAction func abrirModal(_ sender: Any) {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            self.tvImagenes.center.x = self.scrollView.center.x
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.btnsalirModal.alpha = 0.5
+        })
+    }
+    @IBAction func salirModal(_ sender: Any) {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.tvImagenes.center.x = -600
+            self.btnsalirModal.alpha = 0
+        })
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrDerechos.count
+        print(arrCreadores.count)
+        return arrCreadores.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celda = tableView.dequeueReusableCell(withIdentifier: "celV", for: indexPath)
-        celda.textLabel?.text = arrDerechos[indexPath.row]
+        let celda = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ViewController_TableViewCell
+        
+        celda.Asignar(nombre:arrCreadores[indexPath.row],enlace:arrEnlaces[indexPath.row],licencia:licenced)
+        print(celda.txtIconoCreador.text)
         return celda
     }
-    
+//Otros
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
 

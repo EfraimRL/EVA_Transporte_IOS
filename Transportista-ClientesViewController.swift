@@ -22,9 +22,9 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
         self.tvTClientesLista.delegate = self
         self.tvTClientesLista.dataSource = self
         Listar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ClientesViewController.Listar) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ClientesViewController.Listar) )
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salir", style: UIBarButtonItemStyle.plain,target:self, action: #selector(salir))
     }
     //Salir
     func salir(){
@@ -91,6 +91,7 @@ class Transportista_ClientesViewController: UIViewController,UITableViewDelegate
                     print("Mensaje traido de server (tipo json)",result)
                 }
                 else{
+                    print(user_headers)
                     for (_,propDeCliente):(String,JSON) in json{
                         
                         let id = propDeCliente["id"].int!

@@ -34,8 +34,8 @@ class Transportista_ChoferesViewController: UIViewController,UITableViewDelegate
         self.tvChoferesLista.dataSource = self
         //self.tvChoferesLista.allowsSelection = true
         Listar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
-        navBBar.leftBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Actualizar",style: .done, target: self, action: #selector(Transportista_ChoferesViewController.Listar) )
+        navBBar.rightBarButtonItem = UIBarButtonItem(title: "Salir",style: .done, target: self, action: #selector(salir) )
         //UITabBar.appearance().barStyle = .black
     }
     //Salir

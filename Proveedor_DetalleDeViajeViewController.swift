@@ -8,7 +8,8 @@
 
 import UIKit
 import GoogleMaps
-
+import Alamofire
+import SwiftyJSON
 class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var map: UIView!
@@ -112,6 +113,7 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
     var asd:Any = self
     var mapa:Any = self
     
+    /*
     func mostrarMapa(){
         
         //Mapa
@@ -137,12 +139,99 @@ class Proveedor_DetalleDeViajeViewController: UIViewController,UITableViewDataSo
         map.addSubview(mapView)
         
     }
+    */
+    var lat1 = 27.509180
+    var long1 = -99.561880
+    let lat2 = 27.3
+    let long2 = -99.3
+    var mapView: GMSMapView!
+    func mostrarMapa(){
+        // Create a GMSCameraPosition that tells the map to display the
+        // coordinate -33.86,151.20 at zoom level 6.
+        localizacion()
+        var lat = lat1
+        var long = long1
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom: 9.0)
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width:	map.frame.size.width, height: map.frame.size.height), camera: camera)
+        //mapView.settings.myLocationButton = true
+        mapView.settings.compassButton = true
+        //mapView.isMyLocationEnabled = true
+        /*lat  = lat1  + abs((lat1  - Double(mapView.camera.target.latitude ))/2)
+        print("LATITUD:",lat1,"-",mapView.camera.target.latitude)
+        long = long1 + abs((long1 - Double(mapView.camera.target.longitude))/2)
+        print("LONGITUD:",long1,"-",mapView.camera.target.longitude)
+        print("CAMERA:",lat,",",long)
+        */
+        let cameraPosition = GMSCameraPosition.camera(withLatitude: lat,longitude: long,zoom: 9)
+        mapView.camera = cameraPosition
+        //mapView.moveCamera(GMSCameraUpdate.setTarget(<#T##target: CLLocationCoordinate2D##CLLocationCoordinate2D#>))
+        //mapView.camera. = mapView.camera.target.latitude
+        //mapView.center = self.view.center
+        mapa = mapView
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "X",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
+        self.map.addSubview(self.mapa as! UIView)
+        //self.view = self.mapa as! UIView
+        
+    }
+    func mostrarPosiciones(lat1:Double,long1:Double,lat2:Double,long2:Double){
+        //Dos o mas posiciones
+        let vancouver = CLLocationCoordinate2D(latitude: lat1, longitude: long1)
+        let calgary = CLLocationCoordinate2D(latitude: lat2,longitude: long2)
+        let bounds = GMSCoordinateBounds(coordinate: vancouver, coordinate: calgary)
+        let camera1 = mapView.camera(for: bounds, insets: UIEdgeInsets())!
+        mapView.camera = camera1
+        // Creates a marker in the center of the map.
+    }
+    func mostrarMarker(lat1:Double,long1:Double,title:String,snippet:String){
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: lat1, longitude: long1)
+        marker.title = title
+        marker.snippet = snippet
+        marker.map = mapView
+    }
     func salirDelMapa() -> Void {
         print("salir del mapa")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "",style: .done, target: self, action: #selector(Chofer_DetalleDeViajeViewController.salirDelMapa) )
         self.view = self.asd as! UIView
     }
-    
+//Localizaciòn del mapa, trae las localizaciones desde el Web Service
+    func localizacion(){
+        Alamofire.request("\(localhost)/locations.json", headers: user_headers).responseJSON{ response in
+            print(response)
+            if response.result.value != nil {
+                let json = JSON(response.result.value!)
+                print(json)
+                if json["message"] != JSON.null {
+                    let result = json["message"].string!
+                    print("Nulo: ",result)
+                    _ = LocalNotification.Notificaciones(with: "Error", body: result, at: Date().addedBy(seconds: 0), sender: self)
+                }
+                else{
+                    for (_,detDeNotificaciones):(String,JSON) in json{
+                        
+                        
+                        let title = detDeNotificaciones["address"].string!
+                        let snippet = detDeNotificaciones["name"].string!
+                        let coordenadas = detDeNotificaciones["coordinates"].string!
+                        print(coordenadas)
+                        let arrCoordinates : [String] = coordenadas.components(separatedBy: ",")
+                        
+                        self.lat1 = Double(arrCoordinates[0].trimmingCharacters(in: .whitespaces))!
+                        self.long1 = arrCoordinates.count > 1 ? Double(arrCoordinates[1].trimmingCharacters(in: .whitespaces))! : 0
+                        //Pone el marcador en el mapa
+                        self.mostrarMarker(lat1: self.lat1, long1: self.long1, title: title, snippet:  snippet)
+                    }
+                    
+                    //Agrega localizacion
+                    
+                }
+            }
+            else{
+                alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default, sender: self)
+                print("No hay respuesta del Web Service")
+            }
+        }
+    }
 //Seccion de detalles
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.nombre.count
