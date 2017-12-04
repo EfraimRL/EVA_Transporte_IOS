@@ -49,4 +49,29 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 
+    func enviarNotificacion(){
+        var dataSend = "["name":"Otro", "code":"3", "grade":"Menor","protocol":Descanso"  ]"
+        Alamofire.request("\(localhost)/states.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+            print(response)
+            var segueV:String=""
+            if response.result.value != nil {
+                let json = JSON(response.result.value!)
+                print(json)
+                if json["message"] != JSON.null {
+                    let result = json["message"].string!
+                    print("Nulo: ",result)
+                    _ = LocalNotification.Notificaciones(with: "No se pudo ingresar:", body: result, at: Date().addedBy(seconds: 0), sender: self)
+                    alerta(titulo: "No se pudo ingresar:", mensaje: result, cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
+                }
+                else{
+                    
+                    
+                }
+            }
+            else{
+                alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default, sender: self)
+                print("No hay respuesta del Web Service")
+            }
+ 
+    }
 }

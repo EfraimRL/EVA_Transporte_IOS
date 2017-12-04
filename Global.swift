@@ -20,7 +20,7 @@ var user_email = ""
 var user_headers: HTTPHeaders =  [String:AnyObject]() as! HTTPHeaders
     //Variables de conexion
 
-var localhost = "http://192.168.15.130:3000/"
+var localhost = "http://192.168.15.110:3000/"
 var pagina = ""
 func notificaciones(delegate:UIViewController){
     /*
