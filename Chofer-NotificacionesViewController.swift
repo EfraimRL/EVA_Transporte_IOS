@@ -47,16 +47,29 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            enviarNotificacion(name: "Desastre Natural", code: "1", grade: "Derrumbe", protocols: "Esperar indicaciones del transportista")
+        case 1:
+            enviarNotificacion(name: "Falla del vehiculo", code: "1", grade: "Derrumbe", protocols: "Esperar indicaciones del transportista")
+        case 2:
+            enviarNotificacion(name: "Documentaciòn", code: "1", grade: "Rutinario", protocols: "Presentar documentos y continuar")
+        case 3:
+            enviarNotificacion(name: "Desastre Natural", code: "1", grade: "Otro", protocols: "Esperar indicaciones del transportista")
+        default:
+            print("Selecciono un boton")
+        }
     }
-
-    func enviarNotificacion(){
-        var dataSend = "["name":"Otro", "code":"3", "grade":"Menor","protocol":Descanso"  ]"
-        Alamofire.request("\(localhost)/states.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: [])).responseJSON{ response in
+    ///*
+    func enviarNotificacion(name:String,code:String,grade:String,protocols:String){
+        let dataSend = ["name":name, "code":code, "grade":grade, "protocol":protocols] as [String:Any]
+        print(dataSend)
+        Alamofire.request("\(localhost)/states.json",method: .post, parameters: dataSend, encoding: JSONEncoding(options: []), headers: user_headers).responseJSON{ response in
             print(response)
-            var segueV:String=""
             if response.result.value != nil {
                 let json = JSON(response.result.value!)
                 print(json)
+                
                 if json["message"] != JSON.null {
                     let result = json["message"].string!
                     print("Nulo: ",result)
@@ -64,14 +77,14 @@ class Chofer_NotificacionesViewController: UIViewController,UITableViewDelegate,
                     alerta(titulo: "No se pudo ingresar:", mensaje: result, cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
                 }
                 else{
-                    
-                    
+                    alerta(titulo: "Exito", mensaje: "Se hizo el registro", cantidad_Botones: 1, estilo_controller: .alert, estilo_boton: .default, sender: self)
                 }
             }
             else{
                 alerta(titulo: "Error", mensaje: "No hubo resultados del servidor o no hay conexiòn", cantidad_Botones: 1, estilo_controller: UIAlertControllerStyle.alert, estilo_boton: UIAlertActionStyle.default, sender: self)
                 print("No hay respuesta del Web Service")
             }
- 
+        }
     }
+    //*/
 }
